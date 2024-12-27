@@ -45,6 +45,11 @@ class GameMenu extends Phaser.GameObjects.Container {
                 game_container.update_scenes('game_play');
             }
         });
+        //
+        let text_play = new Phaser.GameObjects.Text(this.scene, 0, 0, 'Play', { fontSize: 48, strokeThickness: 4, stroke: '#70fg09' });
+        text_play.setOrigin(0.5);
+        this.play_button.add(text_play);
+        //
         this.play_button.setOrigin(1);
         this.add(this.play_button);
         this.mode_button_container = new Phaser.GameObjects.Container(this.scene, this.play_button.x - (this.play_button.out_img.width / 2 + 20), this.play_button.y + this.play_button.out_img.height / 2);
