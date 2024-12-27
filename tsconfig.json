@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+      "target": "ES6",
+      "module": "None",
+      "outDir": "js"
+    },
+    "include": [
+        "src"
+    ],
+}
