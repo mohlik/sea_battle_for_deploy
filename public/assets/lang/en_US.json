@@ -1,0 +1,8 @@
+{
+    "test": {
+        "text": "Hello World!",
+        "style": {
+            "fontSize": 20
+        } 
+    }
+}

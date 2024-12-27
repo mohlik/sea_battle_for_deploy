@@ -1,0 +1,322 @@
+{
+    "images": {
+        "files": [
+            {
+                "type": "image",
+                "key": "main_bg",
+                "url": "public/assets/bgs/main_bg.png"
+            },
+            {
+                "type": "image",
+                "key": "basic_window_bg",
+                "url": "public/assets/bgs/basic_window_bg.png"
+            },
+            {
+                "type": "image",
+                "key": "live_house",
+                "url": "public/assets/map_items/live_house.png"
+            },
+            {
+                "type": "image",
+                "key": "broke_house",
+                "url": "public/assets/map_items/broke_house.png"
+            },
+            {
+                "type": "image",
+                "key": "profile_frame",
+                "url": "public/assets/ui/profile_frame.png"
+            },
+            {
+                "type": "image",
+                "key": "close_button",
+                "url": "public/assets/ui/close_button.png"
+            },
+            {
+                "type": "image",
+                "key": "simple_button",
+                "url": "public/assets/ui/simple_button.png"
+            },
+            {
+                "type": "image",
+                "key": "darkner",
+                "url": "public/assets/bgs/darkner.png"
+            },
+
+            {
+                "type": "image",
+                "key": "arrow",
+                "url": "public/assets/ui/arrow.png"
+            },
+            {
+                "type": "image",
+                "key": "ava_frame",
+                "url": "public/assets/ui/ava_frame.png"
+            },
+            {
+                "type": "image",
+                "key": "bot_mode",
+                "url": "public/assets/ui/bot_mode.png"
+            },
+            {
+                "type": "image",
+                "key": "coin",
+                "url": "public/assets/ui/coin.png"
+            },
+            {
+                "type": "image",
+                "key": "default_character",
+                "url": "public/assets/ui/default_character.png"
+            },
+            {
+                "type": "image",
+                "key": "gem",
+                "url": "public/assets/ui/gem.png"
+            },
+            {
+                "type": "image",
+                "key": "mode_button",
+                "url": "public/assets/ui/mode_button.png"
+            },
+            {
+                "type": "image",
+                "key": "play_button",
+                "url": "public/assets/ui/play_button.png"
+            },
+            {
+                "type": "image",
+                "key": "money_bg",
+                "url": "public/assets/ui/money_bg.png"
+            },
+            {
+                "type": "image",
+                "key": "plus",
+                "url": "public/assets/ui/plus.png"
+            },
+            {
+                "type": "image",
+                "key": "profile_bg",
+                "url": "public/assets/ui/profile_bg.png"
+            },
+            {
+                "type": "image",
+                "key": "settings_button",
+                "url": "public/assets/ui/settings_button.png"
+            },
+            {
+                "type": "image",
+                "key": "turn_arrow",
+                "url": "public/assets/ui/turn_arrow.png"
+            },
+            {
+                "type": "image",
+                "key": "home_button",
+                "url": "public/assets/ui/home_button.png"
+            },
+
+            {
+                "type": "image",
+                "key": "random_button",
+                "url": "public/assets/ui/random_button.png"
+            },
+
+            {
+                "type": "image",
+                "key": "rotate_button",
+                "url": "public/assets/ui/rotate_button.png"
+            },
+            {
+                "type": "image",
+                "key": "game_play_button",
+                "url": "public/assets/ui/game_play_button.png"
+            },
+
+            {
+                "type": "image",
+                "key": "ship_4",
+                "url": "public/assets/game_play/ship_4.png"
+            },
+            {
+                "type": "image",
+                "key": "ship_3",
+                "url": "public/assets/game_play/ship_3.png"
+            },
+            {
+                "type": "image",
+                "key": "ship_2",
+                "url": "public/assets/game_play/ship_2.png"
+            },
+            {
+                "type": "image",
+                "key": "ship_1",
+                "url": "public/assets/game_play/ship_1.png"
+            },
+
+            {
+                "type": "image",
+                "key": "ship_4_red",
+                "url": "public/assets/game_play/ship_4_red.png"
+            },
+            {
+                "type": "image",
+                "key": "ship_3_red",
+                "url": "public/assets/game_play/ship_3_red.png"
+            },
+            {
+                "type": "image",
+                "key": "ship_2_red",
+                "url": "public/assets/game_play/ship_2_red.png"
+            },
+            {
+                "type": "image",
+                "key": "ship_1_red",
+                "url": "public/assets/game_play/ship_1_red.png"
+            },
+
+            {
+                "type": "image",
+                "key": "ship_4_green",
+                "url": "public/assets/game_play/ship_4_green.png"
+            },
+            {
+                "type": "image",
+                "key": "ship_3_green",
+                "url": "public/assets/game_play/ship_3_green.png"
+            },
+            {
+                "type": "image",
+                "key": "ship_2_green",
+                "url": "public/assets/game_play/ship_2_green.png"
+            },
+            {
+                "type": "image",
+                "key": "ship_1_green",
+                "url": "public/assets/game_play/ship_1_green.png"
+            },
+
+            {
+                "type": "image",
+                "key": "ship_4_death",
+                "url": "public/assets/game_play/ship_4_death.png"
+            },
+            {
+                "type": "image",
+                "key": "ship_3_death",
+                "url": "public/assets/game_play/ship_3_death.png"
+            },
+            {
+                "type": "image",
+                "key": "ship_2_death",
+                "url": "public/assets/game_play/ship_2_death.png"
+            },
+            {
+                "type": "image",
+                "key": "ship_1_death",
+                "url": "public/assets/game_play/ship_1_death.png"
+            },
+
+            {
+                "type": "image",
+                "key": "cell_true",
+                "url": "public/assets/game_play/cell_true.png"
+            },
+            {
+                "type": "image",
+                "key": "cell_false",
+                "url": "public/assets/game_play/cell_false.png"
+            },
+            {
+                "type": "image",
+                "key": "point_cell",
+                "url": "public/assets/game_play/point_cell.png"
+            },
+            {
+                "type": "image",
+                "key": "explo_1",
+                "url": "public/assets/game_play/explo_1.png"
+            },
+            {
+                "type": "image",
+                "key": "explo_2",
+                "url": "public/assets/game_play/explo_2.png"
+            },
+            {
+                "type": "image",
+                "key": "explo_3",
+                "url": "public/assets/game_play/explo_3.png"
+            },
+            {
+                "type": "image",
+                "key": "explo_4",
+                "url": "public/assets/game_play/explo_4.png"
+            },
+            {
+                "type": "image",
+                "key": "explo_5",
+                "url": "public/assets/game_play/explo_5.png"
+            },
+            {
+                "type": "image",
+                "key": "explo_6",
+                "url": "public/assets/game_play/explo_6.png"
+            },
+            {
+                "type": "image",
+                "key": "explo_7",
+                "url": "public/assets/game_play/explo_7.png"
+            },
+            {
+                "type": "image",
+                "key": "splash_1",
+                "url": "public/assets/game_play/splash_1.png"
+            },
+            {
+                "type": "image",
+                "key": "splash_2",
+                "url": "public/assets/game_play/splash_2.png"
+            },
+            {
+                "type": "image",
+                "key": "splash_3",
+                "url": "public/assets/game_play/splash_3.png"
+            },
+            {
+                "type": "image",
+                "key": "splash_4",
+                "url": "public/assets/game_play/splash_4.png"
+            },
+            {
+                "type": "image",
+                "key": "splash_5",
+                "url": "public/assets/game_play/splash_5.png"
+            },
+            {
+                "type": "image",
+                "key": "splash_6",
+                "url": "public/assets/game_play/splash_6.png"
+            },
+            {
+                "type": "image",
+                "key": "projectile",
+                "url": "public/assets/game_play/projectile.png"
+            }
+        ]
+    },
+    "data": {
+        "files": [
+            {
+                "type": "json",
+                "key": "map_items",
+                "url": "public/assets/data/map_items.json"
+            }
+        ]
+    },
+    "audio": {
+
+    },
+    "fonts": {
+
+    },
+    "json": {
+
+    }
+}

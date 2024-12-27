@@ -1,0 +1,45 @@
+[
+    {
+        "type": "house1",
+        "broke_frame": "broke_house",
+        "live_frame": "live_house",
+        "pos": {
+            "x": 300,
+            "y": 300
+        },
+        "scale": 0.6
+    },
+
+    {
+        "type": "house2",
+        "broke_frame": "broke_house",
+        "live_frame": "live_house",
+        "pos": {
+            "x": 800,
+            "y": 300
+        },
+        "scale": 0.6
+    },
+
+    {
+        "type": "house3",
+        "broke_frame": "broke_house",
+        "live_frame": "live_house",
+        "pos": {
+            "x": 1000,
+            "y": 400
+        },
+        "scale": 0.6
+    },
+
+    {
+        "type": "house4",
+        "broke_frame": "broke_house",
+        "live_frame": "live_house",
+        "pos": {
+            "x": 800,
+            "y": 600
+        },
+        "scale": 0.6
+    }
+]
