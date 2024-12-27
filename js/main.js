@@ -100,12 +100,45 @@ class Boot extends Phaser.Scene {
         game_container = new Game(this);
         this.add.existing(game_container);
         game_container.init();
+        this.set_game_size();
     }
+
+    get_game_size() {
+		return {'W': window.innerWidth, 'H': window.innerHeight - 20};
+	}
+	
+
+	set_game_size() {
+		var canvas = document.querySelector("canvas");	
+		var windowWidth;
+		var windowHeight;
+		
+		if (this && this.scale.isFullscreen) {
+			windowWidth = window.innerWidth;
+			windowHeight = window.innerHeight;
+		}
+		else {
+			var size = this.get_game_size();
+			windowWidth = size['W'];
+			windowHeight = size['H'];
+		}
+		
+		var windowRatio = windowWidth / windowHeight;
+		var gameRatio = phaser_game.config.width / phaser_game.config.height;
+		if(windowRatio < gameRatio){
+			canvas.style.width = windowWidth + "px";
+			canvas.style.height = (windowWidth / gameRatio) + "px";
+		}
+		else{
+			canvas.style.height = windowHeight + "px";
+			canvas.style.width = (windowHeight * gameRatio) + "px";
+		}		
+	}
 }
 const config = {
     type: Phaser.AUTO,
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: 1707,
+    height: 932,
     parent: 'phaser_game',
     backgroundColor: '#111111',
     scale: {
@@ -119,3 +152,4 @@ const config = {
 game = new Phaser.Game(config);
 game_size.width = window.innerWidth;
 game_size.height = window.innerHeight;
+console.log(game_size);
