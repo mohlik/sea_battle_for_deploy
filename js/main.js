@@ -124,7 +124,7 @@ class Boot extends Phaser.Scene {
 		}
 		
 		var windowRatio = windowWidth / windowHeight;
-		var gameRatio = phaser_game.config.width / phaser_game.config.height;
+		var gameRatio = game.config.width / game.config.height;
 		if(windowRatio < gameRatio){
 			canvas.style.width = windowWidth + "px";
 			canvas.style.height = (windowWidth / gameRatio) + "px";
