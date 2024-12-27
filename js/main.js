@@ -103,7 +103,10 @@ class Boot extends Phaser.Scene {
         game_container.init();
         this.set_game_size();
         window.Telegram.WebApp.requestFullscreen();
-        window.Telegram.WebApp.lockOrientation();
+        window.Telegram.WebApp.onEvent('viewportChanged', (params) => {
+            console.log(params);
+        });
+        // window.Telegram.WebApp.lockOrientation();
     }
 
     get_game_size() {
