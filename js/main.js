@@ -122,6 +122,8 @@ class Boot extends Phaser.Scene {
 			windowWidth = size['W'];
 			windowHeight = size['H'];
 		}
+        game_size.width = windowWidth;
+        game_size.height = windowHeight;
 		
 		var windowRatio = windowWidth / windowHeight;
 		var gameRatio = game.config.width / game.config.height;
