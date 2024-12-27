@@ -104,7 +104,7 @@ class Boot extends Phaser.Scene {
     }
 
     get_game_size() {
-		return {'W': window.innerWidth, 'H': window.innerHeight - 20};
+		return {'W': window.innerWidth, 'H': window.innerHeight};
 	}
 	
 
@@ -139,8 +139,8 @@ class Boot extends Phaser.Scene {
 }
 const config = {
     type: Phaser.AUTO,
-    width: 1707,
-    height: 932,
+    width: 1920,
+    height: 1080,
     parent: 'phaser_game',
     backgroundColor: '#111111',
     scale: {
@@ -152,6 +152,6 @@ const config = {
     ]
 };
 game = new Phaser.Game(config);
-game_size.width = window.innerWidth;
-game_size.height = window.innerHeight;
+game_size.width = 1920;
+game_size.height = 1080;
 console.log(game_size);
