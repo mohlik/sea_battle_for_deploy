@@ -48,9 +48,9 @@ class Boot extends Phaser.Scene {
     }
     preload() {
         this.load.script('loader_bar', 'js/components/loader_bar.js');
-        this.load.image('loading_bg', 'public/assets/preload/loading_bg.png');
-        this.load.image('loader_bg', 'public/assets/preload/loader_bg.png');
-        this.load.image('loader_bar', 'public/assets/preload/loader_bar.png');
+        this.load.image('loading_bg', '/assets/preload/loading_bg.png');
+        this.load.image('loader_bg', '/assets/preload/loader_bg.png');
+        this.load.image('loader_bar', '/assets/preload/loader_bar.png');
         this.load.once('complete', this.create_loader, this);
     }
     create_loader() {
@@ -75,8 +75,8 @@ class Boot extends Phaser.Scene {
         this.load.on('progress', (value) => {
             this.loader.update_progress(value);
         });
-        this.load.pack('assets_pack', 'public/assets_pack.json', 'images');
-        this.load.json('map_items', 'public/assets/data/map_items.json');
+        this.load.pack('assets_pack', '/assets_pack.json', 'images');
+        this.load.json('map_items', '/assets/data/map_items.json');
         this.load.scripts('main', [
             'js/game.js',
             'js/scenes/game_menu.js',
