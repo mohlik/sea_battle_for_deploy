@@ -4,7 +4,7 @@ class GamePlay extends Phaser.GameObjects.Container {
         this.init();
     }
     init() {
-        this.cell_width = 58;
+        this.cell_width = global_data.cell_width;
         this.create_back();
         this.create_interface();
         // this.create_field();

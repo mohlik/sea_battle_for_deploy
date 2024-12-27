@@ -33,7 +33,7 @@ class PrepareField extends Phaser.GameObjects.Container {
             this.ships = [];
         }
         let game_scale = 1;
-        let cell_width = 58 * game_scale;
+        let cell_width = global_data.cell_width * game_scale;
         this.create_ships(game_scale, cell_width);
     }
     create_fantoms_ships(game_scale, cell_width) {
@@ -264,7 +264,7 @@ class PrepareField extends Phaser.GameObjects.Container {
     }
     random_field() {
         let game_scale = 1;
-        let cell_width = 58 * game_scale;
+        let cell_width = global_data.cell_width * game_scale;
         let ships_length = this.ships.length;
         let ship;
         let vertical = false;
@@ -396,7 +396,7 @@ class PrepareField extends Phaser.GameObjects.Container {
     }
     init(params) {
         let game_scale = 1;
-        let cell_width = 58 * game_scale;
+        let cell_width = global_data.cell_width * game_scale;
         this.create_field(cell_width);
         this.prepare_frame = new PrepareFrame();
         this.create_drop_zone(game_scale, cell_width);

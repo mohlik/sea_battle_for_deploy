@@ -4,6 +4,7 @@ let game_size = {
     height: 0
 };
 let global_data = {
+    'cell_width': 65,
     'user_data': {
         'name': 'Player',
         'rank': {

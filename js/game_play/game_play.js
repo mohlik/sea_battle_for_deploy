@@ -22,7 +22,7 @@ class GamePlayScene extends Phaser.GameObjects.Container {
     }
     show(params) {
         let game_scale = 1;
-        let cell_width = 58 * game_scale;
+        let cell_width = global_data.cell_width * game_scale;
         let bot_delay = 300;
         this.first_player_field = new GameField(this.scene, {
             field: global_data.game_play.fields[0].field,
@@ -230,7 +230,7 @@ class GamePlayScene extends Phaser.GameObjects.Container {
             hideOnComplete: true
         });
         let game_scale = 1;
-        let cell_width = 58 * game_scale;
+        let cell_width = global_data.cell_width * game_scale;
         this.first_bg = this.create_field(cell_width * 3, cell_width);
         this.add(this.first_bg);
         this.second_bg = this.create_field(cell_width * 16, cell_width);

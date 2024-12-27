@@ -284,7 +284,7 @@ class GameField extends Phaser.GameObjects.Container {
         this.x = params.x;
         this.y = params.y;
         let game_scale = 1;
-        let cell_width = 58 * game_scale;
+        let cell_width = global_data.cell_width * game_scale;
         this.cell_width = cell_width;
         this.field = params.field;
         this.ships = params.ships;
