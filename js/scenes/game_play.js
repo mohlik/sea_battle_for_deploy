@@ -7,33 +7,36 @@ class GamePlay extends Phaser.GameObjects.Container {
         this.cell_width = global_data.cell_width;
         this.create_back();
         this.create_interface();
-        // this.create_field();
         this.create_scenes();
     }
     create_back() {
         this.bg = new Phaser.GameObjects.Graphics(this.scene);
-        this.bg.fillStyle(0xF2E9D5, 1);
+        this.bg.fillStyle(0xE9E8E3, 1);
         this.bg.fillRect(0, 0, game_size.width, game_size.height);
         this.add(this.bg);
         let count_y = Math.ceil(game_size.height / this.cell_width);
         let count_x = Math.ceil(game_size.width / this.cell_width);
-        this.bg.lineStyle(2, 0x7692CD, 0.9);
+        this.bg.lineStyle(3, 0x7692CD, 0.9);
         for (let y = 0; y <= count_y; y++) {
-            this.bg.lineBetween(0, y * this.cell_width, game_size.width, y * this.cell_width);
+            this.bg.lineBetween(0, y * this.cell_width + this.cell_width / 2, game_size.width, y * this.cell_width + this.cell_width / 2);
         }
         for (let x = 0; x <= count_x; x++) {
             this.bg.lineBetween(x * this.cell_width, 0, x * this.cell_width, game_size.height);
         }
+        this.bg.lineStyle(3, 0xff0000, 0.9);
+        this.bg.lineBetween(0, 2.5 * this.cell_width, game_size.width, 2.5 * this.cell_width);
     }
     create_scenes() {
         this.game_play = new GamePlayScene(this.scene, {});
         this.prepare_field = new PrepareField(this.scene, {});
-        this.add([this.game_play, this.prepare_field]);
+        this.prepare_arsenal = new PrepareArsenal(this.scene, {});
+        this.add([this.game_play, this.prepare_field, this.prepare_arsenal]);
         this.update_scenes('prepare_field');
     }
     update_scenes(scene_id) {
         const condition = {
             'prepare_field': this.prepare_field,
+            'prepare_arsenal': this.prepare_arsenal,
             'game_play': this.game_play,
         };
         let _visible = false;

@@ -4,9 +4,12 @@ class GameMenu extends Phaser.GameObjects.Container {
         this.init();
     }
     init() {
-        this.bg = new Phaser.GameObjects.Graphics(this.scene);
-        this.bg.fillStyle(0x9BBA57, 1);
-        this.bg.fillRect(0, 0, game_size.width, game_size.height);
+        // this.bg = new Phaser.GameObjects.Graphics(this.scene);
+        // this.bg.fillStyle(0x9BBA57, 1);
+        // this.bg.fillRect(0, 0, game_size.width, game_size.height);
+        // this.add(this.bg);
+        this.bg = new Phaser.GameObjects.Image(this.scene, game_size.width / 2, game_size.height / 2, 'map_bg');
+        this.bg.setScale(game_size.height / this.bg.height);
         this.add(this.bg);
         // this.create_game_map();
         this.darker = new Phaser.GameObjects.Image(this.scene, 0, 0, 'darkner');
@@ -45,13 +48,11 @@ class GameMenu extends Phaser.GameObjects.Container {
                 game_container.update_scenes('game_play');
             }
         });
-        //
+        this.play_button.setOrigin(1);
+        this.add(this.play_button);
         let text_play = new Phaser.GameObjects.Text(this.scene, 0, 0, 'Play', { fontSize: 48, strokeThickness: 4, stroke: '#70fg09' });
         text_play.setOrigin(0.5);
         this.play_button.add(text_play);
-        //
-        this.play_button.setOrigin(1);
-        this.add(this.play_button);
         this.mode_button_container = new Phaser.GameObjects.Container(this.scene, this.play_button.x - (this.play_button.out_img.width / 2 + 20), this.play_button.y + this.play_button.out_img.height / 2);
         this.add(this.mode_button_container);
         this.mode_bg = new Phaser.GameObjects.Image(this.scene, 0, 0, 'mode_button');

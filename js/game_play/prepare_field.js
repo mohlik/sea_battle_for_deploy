@@ -12,7 +12,7 @@ class PrepareField extends Phaser.GameObjects.Container {
     create_drop_zone(game_scale, cell_width) {
         this.drop_zone = {
             x: cell_width * 3,
-            y: cell_width * 3,
+            y: cell_width * 3.5,
             width: cell_width * 10,
             height: cell_width * 10
         };
@@ -182,7 +182,7 @@ class PrepareField extends Phaser.GameObjects.Container {
         this.ships = [];
         let boat_index;
         for (let boat_string_index in rules.ships.boats) {
-            start_coords = { x: cell_width * 14, y: cell_width * 10 };
+            start_coords = { x: cell_width * 14, y: cell_width * 10.5 };
             boat_count = rules.ships.boats[boat_string_index];
             boat_name = 'ship_';
             boat_index = parseInt(boat_string_index);
@@ -192,6 +192,7 @@ class PrepareField extends Phaser.GameObjects.Container {
                 boat_img = new Phaser.GameObjects.Image(this.scene, start_coords.x + ((i * (2 + boat_index)) * cell_width), start_coords.y, boat_name);
                 boat_img.setOrigin(0, 1);
                 boat_img.setScale(cell_width / boat_img.height);
+                console.log(boat_img.scale);
                 boat_img.index = boat_index;
                 boat_img.vertical = false;
                 this.add(boat_img);
@@ -362,9 +363,9 @@ class PrepareField extends Phaser.GameObjects.Container {
         });
         this.add(this.random_button);
         this.play_button = new CustomButton(this.scene, {
-            x: this.random_button.x + 3 * cell_width,
+            x: this.random_button.x + 5 * cell_width,
             y: this.random_button.y,
-            frame_out: 'game_play_button',
+            frame_out: 'next_play_button',
             callback: () => {
                 if (this.prepare_frame.get_filling() >= global_data['game_play'].default_rules.filling) {
                     global_data['game_play'].fields.push({ field: this.prepare_frame.field, ships: this.prepare_frame.ships });
@@ -373,7 +374,7 @@ class PrepareField extends Phaser.GameObjects.Container {
                         this.random_bot_field();
                         global_data['game_play'].fields.push({ field: this.prepare_frame.field, ships: this.prepare_frame.ships });
                     }
-                    game_container.game_play.update_scenes('game_play');
+                    game_container.game_play.update_scenes('prepare_arsenal');
                 }
             }
         });
@@ -410,13 +411,17 @@ class PrepareField extends Phaser.GameObjects.Container {
         this.clear_ships();
     }
     create_field(cell_width) {
+        let temp;
         this.field_frame = new Phaser.GameObjects.Graphics(this.scene);
-        this.field_frame.lineStyle(3, 0x072279, 1);
+        this.field_frame.fillStyle(0xFFFFFF, 0.4);
         let x = cell_width * 3;
-        let y = cell_width * 3;
+        let y = cell_width * 3.5;
         let width = cell_width * 10;
         let height = cell_width * 10;
-        this.field_frame.strokeRoundedRect(x, y, width, height, 5);
+        this.field_frame.fillRect(x, y, width, height);
         this.add(this.field_frame);
+        temp = new Phaser.GameObjects.Image(this.scene, cell_width * 8, cell_width * 8.5, 'field_frame');
+        temp.setScale(0.82);
+        this.add(temp);
     }
 }

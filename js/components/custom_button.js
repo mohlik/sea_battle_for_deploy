@@ -61,7 +61,7 @@ class CustomButton extends Phaser.GameObjects.Container {
         if (over_default) {
             if (this.scene)
                 this.scene.tweens.add({
-                    targets: this,
+                    targets: this.out_img,
                     scale: 1.05,
                     duration: 20,
                     onStart: () => {
@@ -83,7 +83,7 @@ class CustomButton extends Phaser.GameObjects.Container {
             this.down_img.visible = false;
             if (this.scene)
                 this.scene.tweens.add({
-                    targets: this,
+                    targets: this.out_img,
                     scale: 1,
                     duration: 20,
                     onStart: () => {
@@ -104,7 +104,7 @@ class CustomButton extends Phaser.GameObjects.Container {
         if (down_default) {
             if (this.scene)
                 this.scene.tweens.add({
-                    targets: this,
+                    targets: this.out_img,
                     scale: 0.95,
                     duration: 20,
                     onStart: () => {

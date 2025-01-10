@@ -67,60 +67,74 @@ class GameField extends Phaser.GameObjects.Container {
             ;
         }
     }
-    hit(x, y) {
+    hit(x, y, hit_bool) {
         let succsec = false;
         let cell = null;
         if (!this.hited_cells.some(cell => cell.x === x && cell.y === y)) {
-            this.hit_start();
+            if (!hit_bool)
+                this.hit_start();
             cell = this.get_cell(x, y);
             succsec = cell.succ;
             if (!succsec) {
-                // this.point_cell.visible = false;
                 this.points_x.forEach(point_x => {
                     point_x.visible = false;
                 });
                 this.points_y.forEach(point_y => {
                     point_y.visible = false;
                 });
-                // this.point_aim.visible = false;
             }
             let anim_x = this.cell_width / 2 + x * this.cell_width;
             let anim_y = this.cell_width / 2 + y * this.cell_width;
-            let projectile = new Phaser.GameObjects.Image(this.scene, anim_x, anim_y, 'projectile');
-            projectile.setOrigin(1);
-            this.add(projectile);
-            this.scene.tweens.add({
-                targets: projectile,
-                scale: 0,
-                duration: 300,
-                onComplete: () => {
-                    let anim = new Phaser.GameObjects.Sprite(this.scene, anim_x, anim_y, succsec ? 'explo_1' : 'splash_1');
-                    if (!succsec)
-                        anim.scale = 0.7;
-                    anim.on('animationcomplete', () => {
-                        this.hit_callback(succsec);
-                        this.check_ship(x, y);
-                        console.log(cell);
-                        cell.obj.visible = true;
-                        anim.destroy;
-                    });
-                    this.add(anim);
-                    console.log(succsec);
-                    anim.play(succsec ? 'explo' : 'splash');
-                }
-            });
+            if (hit_bool) {
+                // this.check_ship(x,y);
+                // cell.obj.visible = true;
+                let anim = new Phaser.GameObjects.Sprite(this.scene, anim_x, anim_y, succsec ? 'explo_1' : 'splash_1');
+                if (!succsec)
+                    anim.scale = 0.7;
+                anim.on('animationcomplete', () => {
+                    this.check_ship(x, y);
+                    cell.obj.visible = true;
+                    anim.destroy;
+                });
+                this.add(anim);
+                anim.play(succsec ? 'explo' : 'splash');
+            }
+            else {
+                let projectile = new Phaser.GameObjects.Image(this.scene, anim_x, anim_y, 'projectile');
+                projectile.setOrigin(1);
+                this.add(projectile);
+                this.scene.tweens.add({
+                    targets: projectile,
+                    scale: 0,
+                    duration: 300,
+                    onComplete: () => {
+                        let anim = new Phaser.GameObjects.Sprite(this.scene, anim_x, anim_y, succsec ? 'explo_1' : 'splash_1');
+                        if (!succsec)
+                            anim.scale = 0.7;
+                        anim.on('animationcomplete', () => {
+                            this.hit_callback(succsec);
+                            this.check_ship(x, y);
+                            cell.obj.visible = true;
+                            anim.destroy;
+                        });
+                        this.add(anim);
+                        console.log(succsec);
+                        anim.play(succsec ? 'explo' : 'splash');
+                    }
+                });
+            }
         }
         else {
-            this.hit_ignore();
-            // this.point_cell.visible = false;
+            if (!hit_bool)
+                this.hit_ignore();
             this.points_x.forEach(point_x => {
                 point_x.visible = false;
             });
             this.points_y.forEach(point_y => {
                 point_y.visible = false;
             });
-            // this.point_aim.visible = false;
         }
+        return succsec;
     }
     fill_cells(game_scale, cell_width) {
         this.cells_imgs = [];
@@ -148,7 +162,7 @@ class GameField extends Phaser.GameObjects.Container {
         this.ships.forEach((ship_data, i) => {
             vertical = ship_data.y_l > ship_data.x_l;
             ship = new Phaser.GameObjects.Image(this.scene, cell_width / 2 + (ship_data.x * cell_width), cell_width / 2 + (ship_data.y * cell_width), 'ship_' + (vertical ? ship_data.y_l + 1 : ship_data.x_l + 1) + '_death');
-            ship.scale = cell_width / ship.height;
+            ship.scale = (cell_width * (vertical ? ship_data.y_l + 1 : ship_data.x_l + 1)) / ship.width;
             ship.setOrigin((cell_width / 2) / (ship.width * ship.scale), 0.5);
             ship.setAngle(vertical ? 90 : 0);
             cells_ships = [];

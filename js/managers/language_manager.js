@@ -10,7 +10,7 @@ class LanguageManager {
     }
     load_lang(on_complete) {
         if (!(this.lang in this.loaded_languages)) {
-            this.scene.load.json(this.lang, '/assets/lang/' + this.lang + '.json');
+            this.scene.load.json(this.lang, 'public/assets/lang/' + this.lang + '.json');
             this.scene.load.once('complete', () => {
                 this.loaded_languages[this.lang] = true;
                 on_complete();
