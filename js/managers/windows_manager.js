@@ -10,7 +10,8 @@ class WindowsManager extends Phaser.GameObjects.Container {
     }
     create_window_table() {
         this.window_table = {
-            'test': BasicWindow
+            'test': BasicWindow,
+            'result_battle': ResultBattleWindow,
         };
     }
     show_window(window_id, params) {

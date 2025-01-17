@@ -10,15 +10,17 @@ class PrepareArsenal extends Phaser.GameObjects.Container {
     }
     create_bar() {
         let cell_width = global_data.cell_width;
-        let temp = new Phaser.GameObjects.Image(this.scene, 15 * cell_width, 1.5 * cell_width, 'oil_can');
+        let temp = new Phaser.GameObjects.Image(this.scene, 16.5 * cell_width, 3.5 * cell_width, 'game_play', 'oil_icon');
         this.oil_bar = new LoaderBar(this.scene, {
-            frame_bg: 'oil_prog_back',
-            frame_bar: 'oil_prog_front'
+            atlas: 'game_play',
+            frame_bg: 'oil_back',
+            frame_bar: 'oil_bar'
         });
-        this.oil_bar.setPosition(20 * cell_width, 1.5 * cell_width);
+        this.oil_bar.setPosition(21 * cell_width, 3.5 * cell_width);
+        this.oil_bar.scaleX = 1.02;
         this.dot_oil_button = new CustomButton(this.scene, {
-            x: cell_width * 25,
-            y: cell_width * 1.2,
+            x: cell_width * 25.5,
+            y: cell_width * 3.3,
             frame_out: 'dot_button',
             callback: () => {
                 global_data.user_data.oil.amount = global_data.user_data.oil.max;
@@ -38,11 +40,13 @@ class PrepareArsenal extends Phaser.GameObjects.Container {
     create_arsenal() {
         let cell_width = global_data.cell_width;
         this.arsenal_slider = new SliderBanner(this.scene, {
-            background: {
-                frame: 'arsenal_slider'
-            }
+            // background: {
+            //     frame: 'arsenal_slider'
+            // },
+            width: cell_width * 11,
+            height: cell_width * 9
         });
-        this.arsenal_slider.setXY(20 * cell_width, 8 * cell_width);
+        this.arsenal_slider.setXY(21.55 * cell_width, 8.45 * cell_width);
         this.add(this.arsenal_slider);
         this.skill_txts = {};
         let temp;
@@ -53,7 +57,7 @@ class PrepareArsenal extends Phaser.GameObjects.Container {
             'fighter',
             // 'airdef',
             // 'submarine',
-            // 'radar',
+            'radar',
             // 'mine'
         ].forEach((skill_name, i) => {
             temp = new Phaser.GameObjects.Image(this.scene, cell_width * 4.6, i * cell_width * 4 + 1.8 * cell_width, 'skill_item');
@@ -102,8 +106,8 @@ class PrepareArsenal extends Phaser.GameObjects.Container {
             temp.scale = 0.7;
             this.arsenal_slider.add_child(temp);
         });
-        temp = new Phaser.GameObjects.Image(this.scene, 20 * cell_width, 3 * cell_width, 'plank');
-        this.add(temp);
+        // temp = new Phaser.GameObjects.Image(this.scene, 20 * cell_width, 3 * cell_width, 'plank');
+        // this.add(temp);
     }
     handler_buy(skill_name) {
         let user_skills = global_data.user_data.skills;
@@ -128,7 +132,7 @@ class PrepareArsenal extends Phaser.GameObjects.Container {
         console.log(this.ships);
         this.ships.forEach((ship_data, i) => {
             vertical = ship_data.y_l > ship_data.x_l;
-            ship = new Phaser.GameObjects.Image(this.scene, cell_width / 2 + (ship_data.x * cell_width) + 3 * cell_width, cell_width / 2 + (ship_data.y * cell_width) + 3.5 * cell_width, 'ship_' + (vertical ? ship_data.y_l + 1 : ship_data.x_l + 1));
+            ship = new Phaser.GameObjects.Image(this.scene, cell_width / 2 + (ship_data.x * cell_width) + 3 * cell_width, cell_width / 2 + (ship_data.y * cell_width) + 5 * cell_width, 'ship_' + (vertical ? ship_data.y_l + 1 : ship_data.x_l + 1));
             ship.scale = (cell_width * (vertical ? ship_data.y_l + 1 : ship_data.x_l + 1)) / ship.width;
             ship.setOrigin((cell_width / 2) / (ship.width * ship.scale), 0.5);
             ship.setAngle(vertical ? 90 : 0);
@@ -138,10 +142,12 @@ class PrepareArsenal extends Phaser.GameObjects.Container {
     update_buttons() {
     }
     create_buttons(game_scale, cell_width) {
+        let temp;
         this.restart_button = new CustomButton(this.scene, {
-            x: cell_width * 15.5,
-            y: cell_width * 14,
-            frame_out: 'restart_button',
+            x: cell_width * 15,
+            y: cell_width * 14 + 7,
+            atlas: 'game_play',
+            frame_out: 'mini_button',
             callback: () => {
                 global_data.user_data.oil.amount = global_data.user_data.oil.max;
                 this.update_oil();
@@ -151,17 +157,18 @@ class PrepareArsenal extends Phaser.GameObjects.Container {
                 });
             }
         });
-        this.restart_button.scale = 0.7;
+        temp = new Phaser.GameObjects.Image(this.scene, 0, -17, 'game_play', 'rotate_icon');
+        this.restart_button.add(temp);
         this.add(this.restart_button);
         this.play_button = new CustomButton(this.scene, {
-            x: cell_width * 15.5 + 5 * cell_width,
+            x: cell_width * 15 + 6 * cell_width,
             y: cell_width * 14,
             frame_out: 'next_play_button',
             callback: () => {
                 game_container.game_play.update_scenes('game_play');
             }
         });
-        this.play_button.scale = 0.7;
+        // this.play_button.scale = 0.7;
         this.add(this.play_button);
     }
     init(params) {
@@ -177,15 +184,15 @@ class PrepareArsenal extends Phaser.GameObjects.Container {
     create_field(cell_width) {
         let temp;
         this.field_frame = new Phaser.GameObjects.Graphics(this.scene);
-        this.field_frame.fillStyle(0xFFFFFF, 0.4);
+        this.field_frame.fillStyle(0xFFFFFF, 0);
         let x = cell_width * 3;
         let y = cell_width * 3.5;
         let width = cell_width * 10;
         let height = cell_width * 10;
         this.field_frame.fillRect(x, y, width, height);
         this.add(this.field_frame);
-        temp = new Phaser.GameObjects.Image(this.scene, cell_width * 8, cell_width * 8.5, 'field_frame');
-        temp.setScale(0.82);
+        temp = new Phaser.GameObjects.Image(this.scene, cell_width * 8, cell_width * 10, 'game_play', 'field_frame');
+        temp.setScale(1.02);
         this.add(temp);
     }
 }

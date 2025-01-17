@@ -3,8 +3,15 @@ let game_size = {
     width: 0,
     height: 0
 };
+let text_styles = {
+    default: {
+        fontFamily: 'font1',
+        fontSize: '24',
+        color: '#ffffff'
+    }
+};
 let global_data = {
-    'cell_width': 65,
+    'cell_width': 67,
     'user_data': {
         'name': 'Player',
         'rank': {
@@ -145,6 +152,7 @@ class Boot extends Phaser.Scene {
             this.loader.update_progress(value);
         });
         this.load.pack('assets_pack', 'assets_pack.json', 'images');
+        this.load.atlas('game_play', 'assets/game_play_atlas.png', 'assets/game_play_atlas.json');
         this.load.json('map_items', 'assets/data/map_items.json');
         this.load.scripts('main', [
             'js/game.js',
@@ -164,6 +172,8 @@ class Boot extends Phaser.Scene {
             'js/managers/language_manager.js',
             'js/managers/windows_manager.js',
             'js/windows/test_window.js',
+            'js/windows/result_battle.js',
+            'js/windows/quit_battle.js',
         ]);
         this.load.start();
     }

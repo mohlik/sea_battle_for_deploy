@@ -59,18 +59,17 @@ class CustomButton extends Phaser.GameObjects.Container {
     }
     set_over(over_default) {
         if (over_default) {
-            if (this.scene)
-                this.scene.tweens.add({
-                    targets: this.out_img,
-                    scale: 1.05,
-                    duration: 20,
-                    onStart: () => {
-                        this.clickable = false;
-                    },
-                    onComplete: () => {
-                        this.clickable = true;
-                    }
-                });
+            // if(this.scene) this.scene.tweens.add({
+            //     targets: this,
+            //     scale: 1.05,
+            //     duration: 20,
+            //     onStart: () => {
+            //         this.clickable = false;
+            //     },
+            //     onComplete: () => {
+            //         this.clickable = true;
+            //     }
+            // });
         }
         else {
             this.over_img.visible = true;
@@ -81,18 +80,17 @@ class CustomButton extends Phaser.GameObjects.Container {
         if (any_default) {
             this.over_img.visible = false;
             this.down_img.visible = false;
-            if (this.scene)
-                this.scene.tweens.add({
-                    targets: this.out_img,
-                    scale: 1,
-                    duration: 20,
-                    onStart: () => {
-                        this.clickable = false;
-                    },
-                    onComplete: () => {
-                        this.clickable = true;
-                    }
-                });
+            // if(this.scene) this.scene.tweens.add({
+            //     targets: this,
+            //     scale: 1,
+            //     duration: 20,
+            //     onStart: () => {
+            //         this.clickable = false;
+            //     },
+            //     onComplete: () => {
+            //         this.clickable = true;
+            //     }
+            // });
         }
         else {
             this.over_img.visible = false;
@@ -102,19 +100,18 @@ class CustomButton extends Phaser.GameObjects.Container {
     }
     set_down(down_default) {
         if (down_default) {
-            if (this.scene)
-                this.scene.tweens.add({
-                    targets: this.out_img,
-                    scale: 0.95,
-                    duration: 20,
-                    onStart: () => {
-                        this.clickable = false;
-                    },
-                    onComplete: () => {
-                        this.clickable = true;
-                        this.was_down = true;
-                    }
-                });
+            // if(this.scene) this.scene.tweens.add({
+            //     targets: this,
+            //     scale: 0.95,
+            //     duration: 20,
+            //     onStart: () => {
+            //         this.clickable = false;
+            //     },
+            //     onComplete: () => {
+            //         this.clickable = true;
+            this.was_down = true;
+            //     }
+            // });
         }
         else {
             this.over_img.visible = false;

@@ -12,7 +12,7 @@ class PrepareField extends Phaser.GameObjects.Container {
     create_drop_zone(game_scale, cell_width) {
         this.drop_zone = {
             x: cell_width * 3,
-            y: cell_width * 3.5,
+            y: cell_width * 5,
             width: cell_width * 10,
             height: cell_width * 10
         };
@@ -81,9 +81,17 @@ class PrepareField extends Phaser.GameObjects.Container {
         let index_pos = { x: 0, y: 0 };
         object.stand_coords = { x: object.x, y: object.y };
         object.setInteractive({ draggable: true });
+        let start_drag = false;
         object.on('pointerdown', (pointer, localX, localY) => {
+            start_drag = false;
+            if (object.stand)
+                this.last_ship = object;
             pointer_start.x = localX;
             pointer_start.y = localY;
+        });
+        object.on('pointerup', () => {
+            if (!start_drag && this.is_rotate_ship())
+                this.rotate_ship();
         });
         object.on('dragstart', (pointer, dragX, dragY) => {
             this.clear_fantoms();
@@ -98,6 +106,7 @@ class PrepareField extends Phaser.GameObjects.Container {
             this.update_buttons();
         });
         object.on('drag', (pointer, dragX, dragY) => {
+            start_drag = true;
             this.clear_fantoms();
             move_pos.x = pointer.worldX - pointer_start.x + (object.stand ? cell_width / 2 : 0);
             move_pos.y = pointer.worldY + pointer_start.y - (object.stand ? cell_width / 2 : 0);
@@ -182,14 +191,14 @@ class PrepareField extends Phaser.GameObjects.Container {
         this.ships = [];
         let boat_index;
         for (let boat_string_index in rules.ships.boats) {
-            start_coords = { x: cell_width * 14, y: cell_width * 10.5 };
+            start_coords = { x: cell_width * 26, y: cell_width * 12 };
             boat_count = rules.ships.boats[boat_string_index];
             boat_name = 'ship_';
             boat_index = parseInt(boat_string_index);
             boat_name += (boat_index + 1);
             start_coords.y -= boat_index * 2 * cell_width;
             for (let i = 0; i < boat_count; i++) {
-                boat_img = new Phaser.GameObjects.Image(this.scene, start_coords.x + ((i * (2 + boat_index)) * cell_width), start_coords.y, boat_name);
+                boat_img = new Phaser.GameObjects.Image(this.scene, start_coords.x - (((i + 1) * (2 + boat_index)) * cell_width), start_coords.y, boat_name);
                 boat_img.setOrigin(0, 1);
                 boat_img.setScale(cell_width / boat_img.height);
                 console.log(boat_img.scale);
@@ -333,37 +342,42 @@ class PrepareField extends Phaser.GameObjects.Container {
         this.is_random_field = this.is_random();
         this.is_bot = global_data['game_play'].with_bot;
         this.done_field = this.prepare_frame.get_filling() >= global_data['game_play'].default_rules.filling;
-        // this.rotate_button.alpha = this.is_rotate ? 1 : 0.7;
-        // this.random_button.alpha = this.is_random_field ? 1 : 0.7;
-        // this.next_button.alpha = this.done_field ? 1 : 0.7;
-        // this.play_button.alpha = this.done_field ? 1 : 0.7;
+        this.done_icon.visible = this.done_field;
+        this.random_button.alpha = this.is_random_field ? 1 : 0.7;
+        this.play_button.alpha = this.done_field ? 1 : 0.7;
         // this.next_button.visible = !this.is_bot && global_data.game_play.fields.length === 0;
         // this.play_button.visible = this.is_bot || global_data.game_play.fields.length === 1;
     }
     create_buttons(game_scale, cell_width) {
-        this.rotate_button = new CustomButton(this.scene, {
-            x: cell_width * 15.5,
-            y: cell_width * 12.5,
-            frame_out: 'rotate_button',
+        let temp;
+        this.save_button = new CustomButton(this.scene, {
+            x: cell_width * 15,
+            y: cell_width * 6 + 7,
+            atlas: 'game_play',
+            frame_out: 'mini_button',
             callback: () => {
-                if (this.is_rotate_ship())
-                    this.rotate_ship();
+                // if(this.is_rotate_ship()) this.rotate_ship();
             }
         });
-        this.add(this.rotate_button);
+        temp = new Phaser.GameObjects.Image(this.scene, 0, -17, 'game_play', 'save_icon_dark');
+        this.save_button.add(temp);
+        this.add(this.save_button);
         this.random_button = new CustomButton(this.scene, {
-            x: cell_width * 18.5,
-            y: cell_width * 12.5,
-            frame_out: 'random_button',
+            x: cell_width * 15,
+            y: cell_width * 14 + 7,
+            atlas: 'game_play',
+            frame_out: 'mini_button',
             callback: () => {
                 if (this.is_random()) {
                     this.random_field();
                 }
             }
         });
+        temp = new Phaser.GameObjects.Image(this.scene, 0, -17, 'game_play', 'rotate_icon');
+        this.random_button.add(temp);
         this.add(this.random_button);
         this.play_button = new CustomButton(this.scene, {
-            x: this.random_button.x + 5 * cell_width,
+            x: this.random_button.x + 7 * cell_width,
             y: this.random_button.y,
             frame_out: 'next_play_button',
             callback: () => {
@@ -378,7 +392,7 @@ class PrepareField extends Phaser.GameObjects.Container {
                 }
             }
         });
-        this.play_button.scale = 0.7;
+        // this.play_button.scale = 0.7;
         this.add(this.play_button);
         // this.next_button = new CustomButton(this.scene, {
         //     x: this.play_button.x,
@@ -393,11 +407,13 @@ class PrepareField extends Phaser.GameObjects.Container {
         //     }
         // });
         // this.add(this.next_button);
-        // this.update_buttons();
+        this.update_buttons();
     }
     init(params) {
         let game_scale = 1;
         let cell_width = global_data.cell_width * game_scale;
+        this.done_icon = new Phaser.GameObjects.Image(this.scene, cell_width * 22, cell_width * 9, 'game_play', 'done_icon');
+        this.add(this.done_icon);
         this.create_field(cell_width);
         this.prepare_frame = new PrepareFrame();
         this.create_drop_zone(game_scale, cell_width);
@@ -413,15 +429,15 @@ class PrepareField extends Phaser.GameObjects.Container {
     create_field(cell_width) {
         let temp;
         this.field_frame = new Phaser.GameObjects.Graphics(this.scene);
-        this.field_frame.fillStyle(0xFFFFFF, 0.4);
+        this.field_frame.fillStyle(0xFFFFFF, 0);
         let x = cell_width * 3;
-        let y = cell_width * 3.5;
+        let y = cell_width * 5;
         let width = cell_width * 10;
         let height = cell_width * 10;
         this.field_frame.fillRect(x, y, width, height);
         this.add(this.field_frame);
-        temp = new Phaser.GameObjects.Image(this.scene, cell_width * 8, cell_width * 8.5, 'field_frame');
-        temp.setScale(0.82);
+        temp = new Phaser.GameObjects.Image(this.scene, cell_width * 8, cell_width * 10, 'game_play', 'field_frame');
+        temp.scale = 1.02;
         this.add(temp);
     }
 }

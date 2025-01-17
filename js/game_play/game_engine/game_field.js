@@ -23,16 +23,17 @@ class GameField extends Phaser.GameObjects.Container {
     all_ships_was_hited() {
         return this.all_ships_count === this.hited_ships_count;
     }
-    get_cell(x, y) {
+    get_cell(x, y, just_get) {
         let cell = null;
         this.cells_imgs.forEach(cell_obj => {
             if (x === cell_obj.x && y === cell_obj.y) {
                 cell = cell_obj;
-                if (!this.hited_cells.some(cell => cell.x === x && cell.y === y))
+                if (!this.hited_cells.some(cell => cell.x === x && cell.y === y) && !just_get)
                     this.hited_cells_count++;
             }
         });
-        this.hited_cells.push({ x, y });
+        if (!just_get)
+            this.hited_cells.push({ x, y });
         return cell;
     }
     check_ship(x, y) {
@@ -147,7 +148,7 @@ class GameField extends Phaser.GameObjects.Container {
                 else
                     cell_img = 'cell_false';
                 cell_object = new Phaser.GameObjects.Image(this.scene, cell_width / 2 + (cell_width * x), cell_width / 2 + (cell_width * y), cell_img);
-                cell_object.setScale(game_scale);
+                cell_object.setScale(cell_width / cell_object.width);
                 cell_object.visible = false;
                 this.all_cells_count++;
                 this.cells_container.add(cell_object);
@@ -194,6 +195,7 @@ class GameField extends Phaser.GameObjects.Container {
             new Phaser.GameObjects.Image(this.scene, 0, 0, 'point_cell')
         ];
         this.points_x.forEach((point_x, i) => {
+            point_x.scale = cell_width / point_x.width;
             point_x.y = i * cell_width + cell_width / 2;
             point_x.alpha = 0.5;
             point_x.visible = false;
@@ -211,6 +213,7 @@ class GameField extends Phaser.GameObjects.Container {
             new Phaser.GameObjects.Image(this.scene, 0, 0, 'point_cell')
         ];
         this.points_y.forEach((point_y, i) => {
+            point_y.scale = cell_width / point_y.width;
             point_y.x = i * cell_width + cell_width / 2;
             point_y.alpha = 0.5;
             point_y.visible = false;
@@ -298,7 +301,7 @@ class GameField extends Phaser.GameObjects.Container {
         this.x = params.x;
         this.y = params.y;
         let game_scale = 1;
-        let cell_width = global_data.cell_width * game_scale;
+        let cell_width = global_data.cell_width * game_scale + 2;
         this.cell_width = cell_width;
         this.field = params.field;
         this.ships = params.ships;
@@ -318,6 +321,6 @@ class GameField extends Phaser.GameObjects.Container {
         this.fill_ships(game_scale, cell_width);
         this.fill_cells(game_scale, cell_width);
         this.create_pointer(game_scale, cell_width);
-        this.point = new Phaser.GameObjects.Image(this.scene, 0, 0, 'common1', 'Aim');
+        // this.point = new Phaser.GameObjects.Image(this.scene, 0, 0, 'common1', 'Aim');
     }
 }

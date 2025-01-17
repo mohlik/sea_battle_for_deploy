@@ -1,0 +1,1343 @@
+{
+	"textures": [
+		{
+			"image": "game_play_atlas.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1536,
+				"h": 1536
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "field_frame",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 691,
+						"h": 685
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 691,
+						"h": 685
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 691,
+						"h": 685
+					}
+				},
+				{
+					"filename": "slide_item_back",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 655,
+						"h": 247
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 655,
+						"h": 247
+					},
+					"frame": {
+						"x": 691,
+						"y": 0,
+						"w": 655,
+						"h": 247
+					}
+				},
+				{
+					"filename": "plane_torpedo",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 189,
+						"h": 247
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 189,
+						"h": 247
+					},
+					"frame": {
+						"x": 1346,
+						"y": 0,
+						"w": 189,
+						"h": 247
+					}
+				},
+				{
+					"filename": "big_red_button",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 541,
+						"h": 154
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 541,
+						"h": 154
+					},
+					"frame": {
+						"x": 691,
+						"y": 247,
+						"w": 541,
+						"h": 154
+					}
+				},
+				{
+					"filename": "plane_bomber",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 173,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 173,
+						"h": 250
+					},
+					"frame": {
+						"x": 1232,
+						"y": 247,
+						"w": 173,
+						"h": 250
+					}
+				},
+				{
+					"filename": "turn_arrow",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 144,
+						"h": 285
+					},
+					"spriteSourceSize": {
+						"x": 30,
+						"y": 0,
+						"w": 109,
+						"h": 285
+					},
+					"frame": {
+						"x": 1405,
+						"y": 247,
+						"w": 109,
+						"h": 285
+					}
+				},
+				{
+					"filename": "info_icon",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 60,
+						"h": 41
+					},
+					"spriteSourceSize": {
+						"x": 23,
+						"y": 0,
+						"w": 16,
+						"h": 41
+					},
+					"frame": {
+						"x": 1514,
+						"y": 247,
+						"w": 16,
+						"h": 41
+					}
+				},
+				{
+					"filename": "oil_back",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 527,
+						"h": 66
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 527,
+						"h": 66
+					},
+					"frame": {
+						"x": 691,
+						"y": 401,
+						"w": 527,
+						"h": 66
+					}
+				},
+				{
+					"filename": "blue_button",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 338,
+						"h": 96
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 338,
+						"h": 96
+					},
+					"frame": {
+						"x": 691,
+						"y": 467,
+						"w": 338,
+						"h": 96
+					}
+				},
+				{
+					"filename": "mini_button",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 168,
+						"h": 168
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 2,
+						"w": 166,
+						"h": 163
+					},
+					"frame": {
+						"x": 1029,
+						"y": 467,
+						"w": 166,
+						"h": 163
+					}
+				},
+				{
+					"filename": "mine",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 32,
+						"h": 34
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 32,
+						"h": 34
+					},
+					"frame": {
+						"x": 1195,
+						"y": 467,
+						"w": 32,
+						"h": 34
+					}
+				},
+				{
+					"filename": "mini_button_dark",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 158,
+						"h": 157
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 158,
+						"h": 157
+					},
+					"frame": {
+						"x": 1227,
+						"y": 497,
+						"w": 158,
+						"h": 157
+					}
+				},
+				{
+					"filename": "video_icon",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 25,
+						"h": 31
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 25,
+						"h": 31
+					},
+					"frame": {
+						"x": 1195,
+						"y": 501,
+						"w": 25,
+						"h": 31
+					}
+				},
+				{
+					"filename": "chest_opened",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 136,
+						"h": 155
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 136,
+						"h": 155
+					},
+					"frame": {
+						"x": 1385,
+						"y": 532,
+						"w": 136,
+						"h": 155
+					}
+				},
+				{
+					"filename": "done_icon",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 168,
+						"h": 146
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 168,
+						"h": 146
+					},
+					"frame": {
+						"x": 691,
+						"y": 563,
+						"w": 168,
+						"h": 146
+					}
+				},
+				{
+					"filename": "plane_fighter",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 125,
+						"h": 145
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 125,
+						"h": 145
+					},
+					"frame": {
+						"x": 859,
+						"y": 563,
+						"w": 125,
+						"h": 145
+					}
+				},
+				{
+					"filename": "rating_star",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 44,
+						"h": 44
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 44,
+						"h": 44
+					},
+					"frame": {
+						"x": 984,
+						"y": 563,
+						"w": 44,
+						"h": 44
+					}
+				},
+				{
+					"filename": "chest_closed",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 134,
+						"h": 123
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 134,
+						"h": 123
+					},
+					"frame": {
+						"x": 984,
+						"y": 630,
+						"w": 134,
+						"h": 123
+					}
+				},
+				{
+					"filename": "shadow_plane_torpedo",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 72,
+						"h": 95
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 72,
+						"h": 95
+					},
+					"frame": {
+						"x": 1118,
+						"y": 630,
+						"w": 72,
+						"h": 95
+					}
+				},
+				{
+					"filename": "ship_2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 116,
+						"h": 59
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 116,
+						"h": 59
+					},
+					"frame": {
+						"x": 859,
+						"y": 708,
+						"w": 116,
+						"h": 59
+					}
+				},
+				{
+					"filename": "ship_3_death",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 176,
+						"h": 66
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 171,
+						"h": 66
+					},
+					"frame": {
+						"x": 1190,
+						"y": 654,
+						"w": 171,
+						"h": 66
+					}
+				},
+				{
+					"filename": "ship_3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 175,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 175,
+						"h": 58
+					},
+					"frame": {
+						"x": 1361,
+						"y": 687,
+						"w": 175,
+						"h": 58
+					}
+				},
+				{
+					"filename": "ship_2_death",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 128,
+						"h": 67
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 128,
+						"h": 67
+					},
+					"frame": {
+						"x": 1190,
+						"y": 720,
+						"w": 128,
+						"h": 67
+					}
+				},
+				{
+					"filename": "close_button",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 70,
+						"h": 70
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 70,
+						"h": 70
+					},
+					"frame": {
+						"x": 1118,
+						"y": 725,
+						"w": 70,
+						"h": 70
+					}
+				},
+				{
+					"filename": "ship_2_shadow",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 129,
+						"h": 66
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 129,
+						"h": 66
+					},
+					"frame": {
+						"x": 975,
+						"y": 753,
+						"w": 129,
+						"h": 66
+					}
+				},
+				{
+					"filename": "ship_3_shadow",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 198,
+						"h": 67
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 198,
+						"h": 67
+					},
+					"frame": {
+						"x": 1318,
+						"y": 745,
+						"w": 198,
+						"h": 67
+					}
+				},
+				{
+					"filename": "ship_2_green",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 116,
+						"h": 59
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 116,
+						"h": 59
+					},
+					"frame": {
+						"x": 1188,
+						"y": 787,
+						"w": 116,
+						"h": 59
+					}
+				},
+				{
+					"filename": "arsenal_icon",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 80,
+						"h": 77
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 80,
+						"h": 77
+					},
+					"frame": {
+						"x": 1104,
+						"y": 795,
+						"w": 80,
+						"h": 77
+					}
+				},
+				{
+					"filename": "ship_3_green",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 175,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 175,
+						"h": 58
+					},
+					"frame": {
+						"x": 1304,
+						"y": 812,
+						"w": 175,
+						"h": 58
+					}
+				},
+				{
+					"filename": "back_icon",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 69,
+						"h": 70
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 0,
+						"w": 55,
+						"h": 70
+					},
+					"frame": {
+						"x": 1479,
+						"y": 812,
+						"w": 55,
+						"h": 70
+					}
+				},
+				{
+					"filename": "ship_2_red",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 116,
+						"h": 59
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 116,
+						"h": 59
+					},
+					"frame": {
+						"x": 1184,
+						"y": 846,
+						"w": 116,
+						"h": 59
+					}
+				},
+				{
+					"filename": "ship_3_red",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 175,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 175,
+						"h": 58
+					},
+					"frame": {
+						"x": 1300,
+						"y": 870,
+						"w": 175,
+						"h": 58
+					}
+				},
+				{
+					"filename": "rank_3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 61,
+						"h": 61
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 61,
+						"h": 61
+					},
+					"frame": {
+						"x": 1475,
+						"y": 882,
+						"w": 61,
+						"h": 61
+					}
+				},
+				{
+					"filename": "oil_bar",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 521,
+						"h": 54
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 0,
+						"w": 519,
+						"h": 54
+					},
+					"frame": {
+						"x": 0,
+						"y": 685,
+						"w": 519,
+						"h": 54
+					}
+				},
+				{
+					"filename": "submarine",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 147,
+						"h": 47
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 147,
+						"h": 47
+					},
+					"frame": {
+						"x": 519,
+						"y": 685,
+						"w": 147,
+						"h": 47
+					}
+				},
+				{
+					"filename": "cell",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 75,
+						"h": 75
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 75,
+						"h": 75
+					},
+					"frame": {
+						"x": 666,
+						"y": 709,
+						"w": 75,
+						"h": 75
+					}
+				},
+				{
+					"filename": "micro_button",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 70,
+						"h": 68
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 70,
+						"h": 68
+					},
+					"frame": {
+						"x": 741,
+						"y": 709,
+						"w": 70,
+						"h": 68
+					}
+				},
+				{
+					"filename": "chat_icon",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 77,
+						"h": 60
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 77,
+						"h": 60
+					},
+					"frame": {
+						"x": 519,
+						"y": 732,
+						"w": 77,
+						"h": 60
+					}
+				},
+				{
+					"filename": "ship_1_shadow",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 69,
+						"h": 66
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 69,
+						"h": 66
+					},
+					"frame": {
+						"x": 596,
+						"y": 732,
+						"w": 69,
+						"h": 66
+					}
+				},
+				{
+					"filename": "chat_icon_dark",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 77,
+						"h": 60
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 77,
+						"h": 60
+					},
+					"frame": {
+						"x": 811,
+						"y": 767,
+						"w": 77,
+						"h": 60
+					}
+				},
+				{
+					"filename": "info_button",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 67,
+						"h": 66
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 67,
+						"h": 66
+					},
+					"frame": {
+						"x": 741,
+						"y": 777,
+						"w": 67,
+						"h": 66
+					}
+				},
+				{
+					"filename": "ship_1_death",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 76,
+						"h": 55
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 76,
+						"h": 55
+					},
+					"frame": {
+						"x": 665,
+						"y": 784,
+						"w": 76,
+						"h": 55
+					}
+				},
+				{
+					"filename": "oil_icon_dark",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 50
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 50
+					},
+					"frame": {
+						"x": 888,
+						"y": 767,
+						"w": 78,
+						"h": 50
+					}
+				},
+				{
+					"filename": "shadow_plane_bomber",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 51,
+						"h": 72
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 51,
+						"h": 72
+					},
+					"frame": {
+						"x": 888,
+						"y": 817,
+						"w": 51,
+						"h": 72
+					}
+				},
+				{
+					"filename": "flag_ua",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 60,
+						"h": 60
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 60,
+						"h": 60
+					},
+					"frame": {
+						"x": 808,
+						"y": 827,
+						"w": 60,
+						"h": 60
+					}
+				},
+				{
+					"filename": "save_icon_dark",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 60,
+						"h": 60
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 60,
+						"h": 60
+					},
+					"frame": {
+						"x": 939,
+						"y": 819,
+						"w": 60,
+						"h": 60
+					}
+				},
+				{
+					"filename": "ship_1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 61,
+						"h": 59
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 61,
+						"h": 59
+					},
+					"frame": {
+						"x": 999,
+						"y": 819,
+						"w": 61,
+						"h": 59
+					}
+				},
+				{
+					"filename": "ship_1_green",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 61,
+						"h": 59
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 61,
+						"h": 59
+					},
+					"frame": {
+						"x": 1060,
+						"y": 872,
+						"w": 61,
+						"h": 59
+					}
+				},
+				{
+					"filename": "ship_1_red",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 61,
+						"h": 59
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 61,
+						"h": 59
+					},
+					"frame": {
+						"x": 999,
+						"y": 878,
+						"w": 61,
+						"h": 59
+					}
+				},
+				{
+					"filename": "home_icon",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 60,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 60,
+						"h": 57
+					},
+					"frame": {
+						"x": 939,
+						"y": 879,
+						"w": 60,
+						"h": 57
+					}
+				},
+				{
+					"filename": "rotate_icon",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 60,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 60,
+						"h": 57
+					},
+					"frame": {
+						"x": 1121,
+						"y": 872,
+						"w": 60,
+						"h": 57
+					}
+				},
+				{
+					"filename": "shadow_plane_fighter",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 51,
+						"h": 59
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 51,
+						"h": 59
+					},
+					"frame": {
+						"x": 1181,
+						"y": 905,
+						"w": 51,
+						"h": 59
+					}
+				},
+				{
+					"filename": "oil_icon",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 56,
+						"h": 37
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 56,
+						"h": 37
+					},
+					"frame": {
+						"x": 1121,
+						"y": 929,
+						"w": 56,
+						"h": 37
+					}
+				},
+				{
+					"filename": "ship_4",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 238,
+						"h": 61
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 238,
+						"h": 61
+					},
+					"frame": {
+						"x": 1232,
+						"y": 928,
+						"w": 238,
+						"h": 61
+					}
+				},
+				{
+					"filename": "ship_4_death",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 247,
+						"h": 88
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 247,
+						"h": 88
+					},
+					"frame": {
+						"x": 0,
+						"y": 739,
+						"w": 247,
+						"h": 88
+					}
+				},
+				{
+					"filename": "ship_4_shadow",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 264,
+						"h": 68
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 264,
+						"h": 68
+					},
+					"frame": {
+						"x": 247,
+						"y": 739,
+						"w": 264,
+						"h": 68
+					}
+				},
+				{
+					"filename": "atom_bomb",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 72,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 72,
+						"h": 36
+					},
+					"frame": {
+						"x": 511,
+						"y": 792,
+						"w": 72,
+						"h": 36
+					}
+				},
+				{
+					"filename": "ship_4_green",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 238,
+						"h": 61
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 238,
+						"h": 61
+					},
+					"frame": {
+						"x": 247,
+						"y": 807,
+						"w": 238,
+						"h": 61
+					}
+				},
+				{
+					"filename": "torpedo",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 104,
+						"h": 14
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 104,
+						"h": 14
+					},
+					"frame": {
+						"x": 485,
+						"y": 828,
+						"w": 104,
+						"h": 14
+					}
+				},
+				{
+					"filename": "ship_4_red",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 238,
+						"h": 61
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 238,
+						"h": 61
+					},
+					"frame": {
+						"x": 0,
+						"y": 827,
+						"w": 238,
+						"h": 61
+					}
+				},
+				{
+					"filename": "little_plank",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 275,
+						"h": 60
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 275,
+						"h": 60
+					},
+					"frame": {
+						"x": 485,
+						"y": 843,
+						"w": 275,
+						"h": 60
+					}
+				},
+				{
+					"filename": "medium_plank",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 727,
+						"h": 67
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 727,
+						"h": 67
+					},
+					"frame": {
+						"x": 0,
+						"y": 903,
+						"w": 727,
+						"h": 67
+					}
+				},
+				{
+					"filename": "large_plank",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 1383,
+						"h": 68
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 1383,
+						"h": 68
+					},
+					"frame": {
+						"x": 0,
+						"y": 989,
+						"w": 1383,
+						"h": 68
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:9b8e24ef3fade0e470b95b1e8bfddfa0:28f5533e7e963d4561eaf37c34910700:89e839e059d0ed1e4e0a6cb9e88b4fb1$"
+	}
+}

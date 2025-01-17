@@ -3,12 +3,31 @@ class GamePlayScene extends Phaser.GameObjects.Container {
         super(scene);
         this.init(params);
     }
+    create_back() {
+        let temp;
+        this.bg = new Phaser.GameObjects.Graphics(this.scene);
+        this.bg.fillStyle(0xE9E8E3, 1);
+        this.bg.fillRect(0, 0, game_size.width, game_size.height);
+        let count_y = Math.ceil(game_size.height / this.cell_width);
+        let count_x = Math.ceil(game_size.width / this.cell_width);
+        this.bg.lineStyle(2, 0x6171A4, 0.7);
+        for (let y = 0; y <= count_y; y++) {
+            this.bg.lineBetween(0, y * this.cell_width, game_size.width, y * this.cell_width);
+        }
+        for (let x = 0; x <= count_x; x++) {
+            this.bg.lineBetween(x * this.cell_width, 0, x * this.cell_width, game_size.height);
+        }
+        this.bg.lineStyle(7, 0xCF4038, 0.9);
+        this.bg.lineBetween(0, 3 * this.cell_width, game_size.width, 3 * this.cell_width);
+        this.add(this.bg);
+    }
     check_endgame() {
         if (this.first_player_field.all_cells_was_hited() ||
             this.first_player_field.all_ships_was_hited()) {
             console.log('Second Player Wins!');
             global_data['game_play'].fields = [];
             game_container.update_scenes('game_menu');
+            // game_container.windows_manager.show_window('result_battle');
             return false;
         }
         if (this.second_player_field.all_cells_was_hited() ||
@@ -16,19 +35,20 @@ class GamePlayScene extends Phaser.GameObjects.Container {
             console.log('First Player Wins!');
             global_data['game_play'].fields = [];
             game_container.update_scenes('game_menu');
+            // game_container.windows_manager.show_window('result_battle');
             return false;
         }
         return true;
     }
     show(params) {
         let game_scale = 1;
-        let cell_width = global_data.cell_width * game_scale;
+        let cell_width = global_data.cell_width * game_scale + 2;
         let bot_delay = 300;
         this.first_player_field = new GameField(this.scene, {
             field: global_data.game_play.fields[0].field,
             ships: global_data.game_play.fields[0].ships,
-            x: cell_width * 3,
-            y: cell_width * 4.5,
+            x: cell_width * 2,
+            y: cell_width * 5,
             hit_start: () => {
                 this.first_player_field.off_turn();
                 this.stop_timer();
@@ -75,7 +95,7 @@ class GamePlayScene extends Phaser.GameObjects.Container {
             field: global_data.game_play.fields[1].field,
             ships: global_data.game_play.fields[1].ships,
             x: cell_width * 16,
-            y: cell_width * 4.5,
+            y: cell_width * 5,
             hit_start: () => {
                 this.second_player_field.off_turn();
                 this.stop_timer();
@@ -120,7 +140,7 @@ class GamePlayScene extends Phaser.GameObjects.Container {
     create_skill_flat() {
         this.skill_flat_active = true;
         this.skill_name = 'torpedo';
-        let cell_width = global_data.cell_width;
+        let cell_width = global_data.cell_width + 2;
         this.skill_flat_container = new Phaser.GameObjects.Container(this.scene, this.second_player_field.x + cell_width * 5, this.second_player_field.y + cell_width * 5);
         this.add(this.skill_flat_container);
         this.skill_flat_container.visible = false;
@@ -166,6 +186,18 @@ class GamePlayScene extends Phaser.GameObjects.Container {
                     this.anim_torpedo(y);
                     this.torpedo_mig.visible = false;
                 }
+                else if (this.skill_name === 'radar') {
+                    if (x < 1)
+                        x = 1;
+                    if (y < 1)
+                        y = 1;
+                    if (x > 8)
+                        x = 8;
+                    if (y > 8)
+                        y = 8;
+                    this.anim_radar(x, y);
+                    this.bomber_mig.visible = false;
+                }
                 this.skill_flat_active = false;
                 this.skill_flat_container.visible = false;
             }
@@ -178,7 +210,7 @@ class GamePlayScene extends Phaser.GameObjects.Container {
             if (flat_down && this.skill_flat_active) {
                 let x = Math.floor((pointer.position.x - this.skill_flat_container.x + 5 * cell_width) / cell_width);
                 let y = Math.floor((pointer.position.y - this.skill_flat_container.y + 5 * cell_width) / cell_width);
-                if (this.skill_name === 'bomber') {
+                if (this.skill_name === 'bomber' || this.skill_name === 'radar') {
                     if (x < 1)
                         x = 1;
                     if (y < 1)
@@ -251,7 +283,7 @@ class GamePlayScene extends Phaser.GameObjects.Container {
         return success;
     }
     anim_bomber(x, y) {
-        let cell_width = global_data.cell_width;
+        let cell_width = global_data.cell_width + 2;
         let plane = new Phaser.GameObjects.Image(this.scene, -300, y * cell_width + this.second_player_field.y - cell_width, 'bomber');
         plane.setFlipX(true);
         this.add(plane);
@@ -273,8 +305,36 @@ class GamePlayScene extends Phaser.GameObjects.Container {
             }
         });
     }
+    anim_radar(x, y) {
+        let cell_width = global_data.cell_width + 2;
+        let cells = [];
+        let data_cell;
+        let temp;
+        for (let y_i = y - 1; y_i < y + 2; y_i++) {
+            for (let x_i = x - 1; x_i < x + 2; x_i++) {
+                data_cell = this.second_player_field.get_cell(x_i, y_i, true);
+                if (data_cell && data_cell.succ) {
+                    temp = new Phaser.GameObjects.Image(this.scene, x_i * cell_width + 16.5 * cell_width, y_i * cell_width + 5 * cell_width, 'radar_mig');
+                    temp.alpha = 0;
+                    this.add(temp);
+                    cells.push(temp);
+                }
+            }
+        }
+        if (this.scene)
+            this.scene.tweens.add({
+                targets: cells,
+                alpha: 1,
+                duration: 300,
+                yoyo: true,
+                repeat: 3,
+                onComplete: () => {
+                    cells.forEach(cell_img => cell_img.destroy());
+                }
+            });
+    }
     anim_fighter(x, y) {
-        let cell_width = global_data.cell_width;
+        let cell_width = global_data.cell_width + 2;
         let plane = new Phaser.GameObjects.Image(this.scene, -300, y * cell_width + this.second_player_field.y - cell_width, 'fighter');
         plane.setFlipX(true);
         this.add(plane);
@@ -298,7 +358,7 @@ class GamePlayScene extends Phaser.GameObjects.Container {
         // let plane = new Phaser.GameObjects.Image(this.scene, 0)
     }
     anim_torpedo(y) {
-        let cell_width = global_data.cell_width;
+        let cell_width = global_data.cell_width + 2;
         let plane = new Phaser.GameObjects.Image(this.scene, -300, y * cell_width + this.second_player_field.y - cell_width, 'torpedo');
         plane.setFlipX(true);
         this.add(plane);
@@ -446,20 +506,36 @@ class GamePlayScene extends Phaser.GameObjects.Container {
             hideOnComplete: true
         });
         let game_scale = 1;
-        let cell_width = global_data.cell_width * game_scale;
-        this.first_bg = this.create_field(cell_width * 3, cell_width);
+        let cell_width = global_data.cell_width * game_scale + 2;
+        this.cell_width = cell_width;
+        this.create_back();
+        this.first_bg = this.create_field(cell_width * 2, cell_width);
         this.add(this.first_bg);
         this.second_bg = this.create_field(cell_width * 16, cell_width);
         this.add(this.second_bg);
-        this.turn_arrow = new Phaser.GameObjects.Image(this.scene, cell_width * 14.5, cell_width * 9.5, 'turn_arrow');
+        this.turn_arrow = new Phaser.GameObjects.Image(this.scene, cell_width * 14, cell_width * 10, 'game_play', 'turn_arrow');
         this.add(this.turn_arrow);
         this.turn_timer = new Phaser.GameObjects.Text(this.scene, this.turn_arrow.x, this.turn_arrow.y, '', { fontSize: 24, strokeThickness: 4, stroke: '#70fg09' });
         this.turn_timer.setOrigin(0.5);
         this.add(this.turn_timer);
         this.create_profiles(cell_width);
+        this.home_button = new CustomButton(this.scene, {
+            x: 14 * this.cell_width,
+            y: 14 * this.cell_width,
+            atlas: 'game_play',
+            frame_out: 'mini_button_dark',
+            callback: () => {
+                game_container.update_scenes('game_menu');
+                // game_container.windows_manager.show_window('result_battle');
+                // game_container.windows_manager.show_window('test', {});
+            }
+        });
+        let temp = new Phaser.GameObjects.Image(this.scene, 0, 0, 'game_play', 'home_icon');
+        this.home_button.add(temp);
+        this.add(this.home_button);
     }
     create_arsenal() {
-        let cell_width = global_data.cell_width;
+        let cell_width = global_data.cell_width + 2;
         this.arsenal_container = new Phaser.GameObjects.Container(this.scene, 0, 0);
         this.arsenal_container.setSize(game_size.width * 2, game_size.height * 2);
         this.arsenal_container.setInteractive();
@@ -481,7 +557,7 @@ class GamePlayScene extends Phaser.GameObjects.Container {
             'fighter',
             // 'airdef',
             // 'submarine',
-            // 'radar',
+            'radar',
             // 'mine'
         ].forEach((skill_name, i) => {
             temp = new Phaser.GameObjects.Image(this.scene, cell_width * 4.6, i * cell_width * 4 + 1.8 * cell_width, 'skill_item');
@@ -527,12 +603,14 @@ class GamePlayScene extends Phaser.GameObjects.Container {
             this.arsenal_slider.add_child(temp);
         });
         let button = new CustomButton(this.scene, {
-            x: cell_width * 14.5,
-            y: cell_width * 9.5 + cell_width * 3,
-            frame_out: 'game_play_button',
+            x: cell_width * 14,
+            y: cell_width * 6,
+            atlas: 'game_play',
+            frame_out: 'mini_button_dark',
             callback: () => this.show_arsenal()
         });
-        button.scale = 0.7;
+        temp = new Phaser.GameObjects.Image(this.scene, 0, 0, 'game_play', 'arsenal_icon');
+        button.add(temp);
         this.add(button);
     }
     start_skill(skill_name) {
@@ -556,6 +634,12 @@ class GamePlayScene extends Phaser.GameObjects.Container {
                 this.skill_flat_container.visible = true;
                 this.torpedo_mig.visible = true;
             }
+            else if (skill_name === 'radar') {
+                this.skill_name = 'radar';
+                this.skill_flat_active = true;
+                this.skill_flat_container.visible = true;
+                this.bomber_mig.visible = true;
+            }
         }
     }
     show_arsenal() {
@@ -565,41 +649,73 @@ class GamePlayScene extends Phaser.GameObjects.Container {
         this.arsenal_container.setVisible(false);
     }
     create_profiles(cell_width) {
-        let profile_container = new Phaser.GameObjects.Container(this.scene, cell_width * 4, cell_width * 3);
+        let temp;
+        let profile_container = new Phaser.GameObjects.Container(this.scene, cell_width * 3, cell_width * 2);
         profile_container.scale = 0.86;
         this.add(profile_container);
-        let ava_frame = new Phaser.GameObjects.Image(this.scene, 0, 0, 'ava_frame');
+        let ava_frame = new Phaser.GameObjects.Image(this.scene, 0, cell_width, 'ava_frame');
         let ava = new Phaser.GameObjects.Image(this.scene, ava_frame.x, ava_frame.y, 'default_character');
-        let profile_name = new Phaser.GameObjects.Text(this.scene, 0, 0, global_data.user_data.name, { fontSize: 36, strokeThickness: 4, stroke: '#70fg09' });
-        profile_name.y = ava.y + ava.height / 2;
-        profile_name.x = ava.x + ava.width / 2 + 20;
-        profile_name.setOrigin(0, 1);
+        let profile_name = new Phaser.GameObjects.Text(this.scene, cell_width * 4.5, cell_width * 0.7, global_data.user_data.name, { fontSize: 36, strokeThickness: 4, stroke: '#70fg09' });
+        // profile_name.y = ava.y + ava.height / 2
+        // profile_name.x = ava.x + ava.width / 2 + 20;
+        profile_name.setOrigin(0.5, 0.5);
+        temp = new Phaser.GameObjects.Image(this.scene, cell_width * 4.65, cell_width * 0.6, 'game_play', 'little_plank');
+        temp.scaleY = 1.1;
+        temp.scaleX = 1.15;
+        profile_container.add(temp);
+        temp = new Phaser.GameObjects.Image(this.scene, cell_width * 4.65, cell_width * 1.8, 'game_play', 'little_plank');
+        temp.scaleY = 1.1;
+        temp.scaleX = 1.15;
+        profile_container.add(temp);
+        temp = new Phaser.GameObjects.Image(this.scene, cell_width * 7.55, cell_width * 0.6, 'game_play', 'micro_button');
+        profile_container.add(temp);
+        temp = new Phaser.GameObjects.Image(this.scene, cell_width * 7.55, cell_width * 1.8, 'game_play', 'micro_button');
+        profile_container.add(temp);
+        temp = new Phaser.GameObjects.Image(this.scene, cell_width * 9.3, cell_width * 0.6, 'game_play', 'little_plank');
+        temp.scaleY = 1.1;
+        temp.scaleX = 0.57;
+        profile_container.add(temp);
+        temp = new Phaser.GameObjects.Image(this.scene, cell_width * 9.3, cell_width * 1.8, 'game_play', 'little_plank');
+        temp.scaleY = 1.1;
+        temp.scaleX = 0.57;
+        profile_container.add(temp);
         profile_container.add([ava_frame, ava, profile_name]);
-        let oponent_container = new Phaser.GameObjects.Container(this.scene, cell_width * 25, cell_width * 3);
+        let oponent_container = new Phaser.GameObjects.Container(this.scene, cell_width * 25, cell_width * 2);
         oponent_container.scale = 0.86;
         this.add(oponent_container);
-        let oponent_ava_frame = new Phaser.GameObjects.Image(this.scene, 0, 0, 'ava_frame');
+        let oponent_ava_frame = new Phaser.GameObjects.Image(this.scene, 0, cell_width, 'ava_frame');
         let oponent_ava = new Phaser.GameObjects.Image(this.scene, oponent_ava_frame.x, oponent_ava_frame.y, 'default_character');
         oponent_ava_frame.setFlipX(true);
         oponent_ava.setFlipX(true);
-        let oponent_name = new Phaser.GameObjects.Text(this.scene, 0, 0, 'Bot', { fontSize: 36, strokeThickness: 4, stroke: '#70fg09' });
-        oponent_name.y = ava.y + oponent_ava.height / 2;
-        oponent_name.x = ava.x - oponent_ava.width / 2 - 20;
-        oponent_name.setOrigin(1, 1);
+        let oponent_name = new Phaser.GameObjects.Text(this.scene, cell_width * -4.5, cell_width * 0.7, 'Bot', { fontSize: 36, strokeThickness: 4, stroke: '#70fg09' });
+        oponent_name.setOrigin(0.5);
+        temp = new Phaser.GameObjects.Image(this.scene, cell_width * -4.65, cell_width * 0.6, 'game_play', 'little_plank');
+        temp.scaleY = 1.1;
+        temp.scaleX = 1.15;
+        oponent_container.add(temp);
+        temp = new Phaser.GameObjects.Image(this.scene, cell_width * -4.65, cell_width * 1.8, 'game_play', 'little_plank');
+        temp.scaleY = 1.1;
+        temp.scaleX = 1.15;
+        oponent_container.add(temp);
+        temp = new Phaser.GameObjects.Image(this.scene, cell_width * -7.55, cell_width * 0.6, 'game_play', 'micro_button');
+        oponent_container.add(temp);
+        temp = new Phaser.GameObjects.Image(this.scene, cell_width * -9.3, cell_width * 0.6, 'game_play', 'little_plank');
+        temp.scaleY = 1.1;
+        temp.scaleX = 0.57;
+        oponent_container.add(temp);
         oponent_container.add([oponent_ava_frame, oponent_ava, oponent_name]);
     }
     create_field(x, cell_width) {
-        let field_container = new Phaser.GameObjects.Container(this.scene, x, cell_width * 4.5);
+        let field_container = new Phaser.GameObjects.Container(this.scene, x, cell_width * 5);
         let temp;
         let field_frame = new Phaser.GameObjects.Graphics(this.scene);
-        field_frame.fillStyle(0xFFFFFF, 0.4);
-        // let y: number = cell_width * 4;
+        field_frame.fillStyle(0xFFFFFF, 0);
         let width = cell_width * 10;
         let height = cell_width * 10;
         field_frame.fillRect(0, 0, width, height);
         field_container.add(field_frame);
-        temp = new Phaser.GameObjects.Image(this.scene, cell_width * 5, cell_width * 5, 'field_frame');
-        temp.setScale(0.82);
+        temp = new Phaser.GameObjects.Image(this.scene, cell_width * 5, cell_width * 5, 'game_play', 'field_frame');
+        temp.setScale(1.05);
         field_container.add(temp);
         return field_container;
     }

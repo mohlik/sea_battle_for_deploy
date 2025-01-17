@@ -6,7 +6,11 @@ class SliderBanner extends Phaser.GameObjects.Container {
     }
     init(params) {
         let prev_y;
-        this.background = new Phaser.GameObjects.Image(this.scene, 0, 0, params.background.texture ? params.background.texture : params.background.frame, params.background.texture ? params.background.frame : null).setOrigin(0.5);
+        if (params.background)
+            this.background = new Phaser.GameObjects.Image(this.scene, 0, 0, params.background.texture ? params.background.texture : params.background.frame, params.background.texture ? params.background.frame : null).setOrigin(0.5);
+        else {
+            this.background = new Phaser.GameObjects.Rectangle(this.scene, 0, 0, params.width, params.height, 0xffffff, 0);
+        }
         if (params.scale)
             this.background.setScale(params.scale.x, params.scale.y);
         if (params.tint)

@@ -441,6 +441,11 @@
                 "type": "image",
                 "key": "bomb",
                 "url": "assets/game_play/bomb.png"
+            },
+            {
+                "type": "image",
+                "key": "radar_mig",
+                "url": "assets/game_play/radar_mig.png"
             }
         ]
     },

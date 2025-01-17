@@ -10,21 +10,28 @@ class GamePlay extends Phaser.GameObjects.Container {
         this.create_scenes();
     }
     create_back() {
+        let temp;
         this.bg = new Phaser.GameObjects.Graphics(this.scene);
         this.bg.fillStyle(0xE9E8E3, 1);
         this.bg.fillRect(0, 0, game_size.width, game_size.height);
         this.add(this.bg);
         let count_y = Math.ceil(game_size.height / this.cell_width);
         let count_x = Math.ceil(game_size.width / this.cell_width);
-        this.bg.lineStyle(3, 0x7692CD, 0.9);
+        this.bg.lineStyle(2, 0x6171A4, 0.7);
         for (let y = 0; y <= count_y; y++) {
-            this.bg.lineBetween(0, y * this.cell_width + this.cell_width / 2, game_size.width, y * this.cell_width + this.cell_width / 2);
+            this.bg.lineBetween(0, y * this.cell_width, game_size.width, y * this.cell_width);
         }
         for (let x = 0; x <= count_x; x++) {
             this.bg.lineBetween(x * this.cell_width, 0, x * this.cell_width, game_size.height);
         }
-        this.bg.lineStyle(3, 0xff0000, 0.9);
-        this.bg.lineBetween(0, 2.5 * this.cell_width, game_size.width, 2.5 * this.cell_width);
+        this.bg.lineStyle(7, 0xCF4038, 0.9);
+        this.bg.lineBetween(0, 3 * this.cell_width, game_size.width, 3 * this.cell_width);
+        temp = new Phaser.GameObjects.Image(this.scene, this.cell_width * 8, this.cell_width * 3.5 + 2, 'game_play', 'medium_plank');
+        temp.scale = this.cell_width * 10 / temp.width;
+        this.add(temp);
+        temp = new Phaser.GameObjects.Image(this.scene, this.cell_width * 21, this.cell_width * 3.5 + 2, 'game_play', 'medium_plank');
+        temp.scale = this.cell_width * 10 / temp.width;
+        this.add(temp);
     }
     create_scenes() {
         this.game_play = new GamePlayScene(this.scene, {});
@@ -54,26 +61,30 @@ class GamePlay extends Phaser.GameObjects.Container {
         });
     }
     create_interface() {
-        this.settings_button = new CustomButton(this.scene, {
-            x: game_size.width - 20,
-            y: 20,
-            frame_out: 'settings_button',
-            callback: () => {
-                game_container.windows_manager.show_window('test', {});
-            }
-        });
-        this.settings_button.setOrigin(1, 0);
-        this.add(this.settings_button);
+        let temp;
+        // this.settings_button = new CustomButton(this.scene, {
+        //     x: game_size.width - 20,
+        //     y: 20,
+        //     frame_out: 'settings_button',
+        //     callback: () => {
+        //         game_container.windows_manager.show_window('test', {});
+        //     }
+        // });
+        // this.settings_button.setOrigin(1, 0);
+        // this.add(this.settings_button);
         this.home_button = new CustomButton(this.scene, {
-            x: 20,
-            y: 20,
-            frame_out: 'home_button',
+            x: 6.5 * this.cell_width - 5,
+            y: 1.5 * this.cell_width,
+            atlas: 'game_play',
+            frame_out: 'medium_plank',
             callback: () => {
                 game_container.update_scenes('game_menu');
                 this.prepare_field.handler_close();
             }
         });
-        this.home_button.setOrigin(0);
+        this.home_button.out_img.setCrop(this.cell_width * 2, 0, this.cell_width * 7, this.cell_width * 1);
+        temp = new Phaser.GameObjects.Image(this.scene, -4 * this.cell_width, 0, 'game_play', 'back_icon');
+        this.home_button.add(temp);
         this.add(this.home_button);
     }
 }
