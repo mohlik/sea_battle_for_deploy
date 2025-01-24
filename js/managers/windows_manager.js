@@ -12,6 +12,9 @@ class WindowsManager extends Phaser.GameObjects.Container {
         this.window_table = {
             'test': BasicWindow,
             'result_battle': ResultBattleWindow,
+            'quit_battle': QuitBattleWindow,
+            'save_field': SaveFieldWindow,
+            'arsenal': ArsenalWindow,
         };
     }
     show_window(window_id, params) {
@@ -39,6 +42,7 @@ class WindowsManager extends Phaser.GameObjects.Container {
             this.window.x = game_size.width / 2;
             this.window.y = -game_size.height / 2;
             this.add(this.window);
+            this.window.init();
             this.window.pre_show(current_params);
             this.anim_pos_window(game_size.height / 2, () => {
                 this.window.post_show();
@@ -46,17 +50,39 @@ class WindowsManager extends Phaser.GameObjects.Container {
         }
     }
     anim_pos_window(y, on_complete) {
+        let ease = y > game_size.height / 2 ? 'back.in' : 'back.out';
+        // let ease = 'linear';
+        let duration = 400;
         this.scene.tweens.add({
+            // targets: this.window.outer_objects ? [this.window, ...this.window.outer_objects] : this.window,
             targets: this.window,
             y,
-            duration: 400,
-            ease: y > game_size.height / 2 ? 'back.in' : 'back.out',
+            duration,
+            ease,
             onComplete: () => on_complete()
+        });
+        if (this.window.outer_objects) {
+            this.window.outer_objects.forEach(outer_object => {
+                this.scene.tweens.add({
+                    targets: this.window.outer_objects,
+                    y: y <= game_size.height / 2 ?
+                        y - game_size.height / 2 - outer_object.y :
+                        y,
+                    duration,
+                    ease
+                });
+            });
+        }
+        this.scene.tweens.add({
+            targets: game_container.dark,
+            alpha: y > game_size.height / 2 ? 0 : 1,
+            duration: 300
         });
     }
     close_window() {
         this.anim_pos_window(game_size.height * 1.5, () => {
-            this.window.destroy();
+            if (this.window)
+                this.window.destroy();
             this.window = null;
             if (this.pending_widows.length > 0)
                 this.show_window();

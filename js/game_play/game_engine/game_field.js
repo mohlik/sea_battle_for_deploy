@@ -119,7 +119,6 @@ class GameField extends Phaser.GameObjects.Container {
                             anim.destroy;
                         });
                         this.add(anim);
-                        console.log(succsec);
                         anim.play(succsec ? 'explo' : 'splash');
                     }
                 });
@@ -178,7 +177,6 @@ class GameField extends Phaser.GameObjects.Container {
             this.ships_arr.push(ship);
             this.ships_container.add(ship);
         });
-        console.log(this.ships_arr);
     }
     create_pointer(game_scale, cell_width) {
         this.setInteractive(new Phaser.Geom.Rectangle(0, 0, cell_width * 10, cell_width * 10), Phaser.Geom.Rectangle.Contains);

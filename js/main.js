@@ -18,6 +18,9 @@ let global_data = {
             'stage': 'sergant',
             'score': 0
         },
+        rating: {
+            score: 999
+        },
         'coins': 0,
         'gems': 0,
         'oil': {
@@ -123,6 +126,9 @@ class Boot extends Phaser.Scene {
         super('Boot');
     }
     preload() {
+        if(parseFloat(window.Telegram.WebApp.version) >= 8) {
+            window.Telegram.WebApp.requestFullscreen();
+        }
         this.load.script('loader_bar', 'js/components/loader_bar.js');
         this.load.image('loading_bg', 'assets/preload/loading_bg.png');
         this.load.image('loader_bg', 'assets/preload/loader_bg.png');
@@ -153,6 +159,7 @@ class Boot extends Phaser.Scene {
         });
         this.load.pack('assets_pack', 'assets_pack.json', 'images');
         this.load.atlas('game_play', 'assets/game_play_atlas.png', 'assets/game_play_atlas.json');
+        this.load.atlas('new', 'assets/new_atlas.png', 'assets/new_atlas.json');
         this.load.json('map_items', 'assets/data/map_items.json');
         this.load.scripts('main', [
             'js/game.js',
@@ -174,6 +181,8 @@ class Boot extends Phaser.Scene {
             'js/windows/test_window.js',
             'js/windows/result_battle.js',
             'js/windows/quit_battle.js',
+            'js/windows/save_field.js',
+            'js/windows/arsenal.js',
         ]);
         this.load.start();
     }

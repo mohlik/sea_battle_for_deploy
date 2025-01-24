@@ -1,7 +1,6 @@
 class BasicWindow extends Phaser.GameObjects.Container {
     constructor(scene) {
         super(scene);
-        this.init();
     }
     init() {
         this.bg = new Phaser.GameObjects.Image(this.scene, 0, 0, 'basic_window_bg');

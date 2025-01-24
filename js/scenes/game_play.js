@@ -26,12 +26,6 @@ class GamePlay extends Phaser.GameObjects.Container {
         }
         this.bg.lineStyle(7, 0xCF4038, 0.9);
         this.bg.lineBetween(0, 3 * this.cell_width, game_size.width, 3 * this.cell_width);
-        temp = new Phaser.GameObjects.Image(this.scene, this.cell_width * 8, this.cell_width * 3.5 + 2, 'game_play', 'medium_plank');
-        temp.scale = this.cell_width * 10 / temp.width;
-        this.add(temp);
-        temp = new Phaser.GameObjects.Image(this.scene, this.cell_width * 21, this.cell_width * 3.5 + 2, 'game_play', 'medium_plank');
-        temp.scale = this.cell_width * 10 / temp.width;
-        this.add(temp);
     }
     create_scenes() {
         this.game_play = new GamePlayScene(this.scene, {});
@@ -73,18 +67,21 @@ class GamePlay extends Phaser.GameObjects.Container {
         // this.settings_button.setOrigin(1, 0);
         // this.add(this.settings_button);
         this.home_button = new CustomButton(this.scene, {
-            x: 6.5 * this.cell_width - 5,
+            x: 6.5 * this.cell_width,
             y: 1.5 * this.cell_width,
-            atlas: 'game_play',
-            frame_out: 'medium_plank',
+            atlas: 'new',
+            frame_out: 'plank',
             callback: () => {
                 game_container.update_scenes('game_menu');
                 this.prepare_field.handler_close();
             }
         });
-        this.home_button.out_img.setCrop(this.cell_width * 2, 0, this.cell_width * 7, this.cell_width * 1);
+        this.home_button.out_img.setScale(0.65, 1);
         temp = new Phaser.GameObjects.Image(this.scene, -4 * this.cell_width, 0, 'game_play', 'back_icon');
         this.home_button.add(temp);
+        let text = new Phaser.GameObjects.Text(this.scene, 0, 0, 'MAIN MENU', { fontFamily: 'rubik', fontSize: 36 });
+        text.setOrigin(0.5);
+        this.home_button.add(text);
         this.add(this.home_button);
     }
 }

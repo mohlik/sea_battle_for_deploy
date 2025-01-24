@@ -21,11 +21,8 @@ class SliderBanner extends Phaser.GameObjects.Container {
         this.minus_x = (this.background.getBounds().width / 2) * 0.95;
         const { width, height } = this.background;
         this.setSize(width, height);
-        this.setInteractive(
-        // {draggable: true}
-        );
+        this.setInteractive();
         this.max_y = this.get_max_y() + 20;
-        // let first_drag = false;
         this.was_move = false;
         this.pointer_down = false;
         this
@@ -52,27 +49,8 @@ class SliderBanner extends Phaser.GameObjects.Container {
                     this.container.y = -(this.max_y - this.minus_y);
             }
         })
-            // .on('dragstart', (pointer, dragX, dragY) => {
-            //     // prev_y = dragY;
-            // })
-            // .on('drag', (pointer, dragX, dragY) => {
-            //     // const new_y = this.container.y + (pointer.position.y - pointer.prevPosition.y);
-            //     // if(new_y < -this.minus_y && new_y > -(this.max_y - this.minus_y)) this.container.y = new_y;
-            //     // else if (new_y > -(this.max_y - this.minus_y)) this.container.y = -this.minus_y;
-            //     // else if (new_y < -this.minus_y) this.container.y = -(this.max_y - this.minus_y);
-            //     // prev_y = dragY;
-            //     // console.log('drag', pointer.y, dragY);
-            // })
-            // .on('dragend', (pointer, dragX, dragY) => {
-            //     // prev_y = dragY;
-            // })
             .on('wheel', (pointer, dragX, dragY) => {
-            // console.log('scroll', {pointer, dragX, dragY});
             const new_y = this.container.y - dragY * 0.3;
-            // console.log(this.get_last());
-            // let this.max_y = Math.max(...this.container.list[0].list.map(e => e.y));
-            // const last_item = this.container.list[0].list.find(e => e.y === this.max_y);
-            // this.max_y += last_item.getBounds().height / 2;
             if (new_y < -this.minus_y && new_y > -(this.max_y - this.minus_y))
                 this.container.y = new_y;
             else if (new_y > -(this.max_y - this.minus_y))
@@ -114,7 +92,6 @@ class SliderBanner extends Phaser.GameObjects.Container {
     }
     get_last() {
         const childs = this.get_childs();
-        console.log(childs);
         return childs[childs.map(e => e.y).indexOf(Math.max(...childs.map(e => e.y)))];
     }
     get_min_max_coords() {
@@ -125,13 +102,11 @@ class SliderBanner extends Phaser.GameObjects.Container {
         const max = last_elem.y + last_elem.getBounds().height / 2;
         return { min, max };
     }
-    setXY(x, y) {
+    setXY(x, y, x1, y1) {
         this.x = x;
         this.y = y;
-        console.log(this.background);
-        this.temp_mask = new Phaser.GameObjects.Rectangle(this.scene, x, y, this.background.width, this.background.height, 0x000000).setScale(this.background.scaleX * 0.98, this.background.scaleY * 0.98);
-        console.log(this.temp_mask);
-        this.temp_mask = this.temp_mask.createGeometryMask();
+        this.rect_mask = new Phaser.GameObjects.Rectangle(this.scene, x1 ? x1 : x, y1 ? y1 : y, this.background.width, this.background.height, 0x000000, 1); //.setScale(this.background.scaleX * 0.98, this.background.scaleY * 0.98);
+        this.temp_mask = this.rect_mask.createGeometryMask();
         this.container.mask = this.temp_mask;
         this.container.setPosition(-this.minus_x, -this.minus_y);
     }

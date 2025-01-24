@@ -100,7 +100,6 @@ class Bot {
             let x_max = 0;
             let y_min = 9;
             let y_max = 0;
-            console.log(this.ship_points);
             this.ship_points.forEach(ship_point => {
                 if (x_min > ship_point.x)
                     x_min = ship_point.x;
@@ -123,7 +122,6 @@ class Bot {
                     y: y_min
                 };
             }
-            console.log(current_point);
             if ((((_f = (_e = this.field) === null || _e === void 0 ? void 0 : _e[current_point.y]) === null || _f === void 0 ? void 0 : _f[current_point.x]) === 0 || ((_h = (_g = this.field) === null || _g === void 0 ? void 0 : _g[current_point.y]) === null || _h === void 0 ? void 0 : _h[current_point.x]) === 1) &&
                 !this.old_points.some(old_point => old_point.x === current_point.x && old_point.y === current_point.y)) {
                 this.old_points.push(current_point);

@@ -16,7 +16,6 @@ class PrepareField extends Phaser.GameObjects.Container {
             width: cell_width * 10,
             height: cell_width * 10
         };
-        console.log(this.drop_zone);
     }
     clear_fantoms() {
         if (this.fantoms)
@@ -201,7 +200,6 @@ class PrepareField extends Phaser.GameObjects.Container {
                 boat_img = new Phaser.GameObjects.Image(this.scene, start_coords.x - (((i + 1) * (2 + boat_index)) * cell_width), start_coords.y, boat_name);
                 boat_img.setOrigin(0, 1);
                 boat_img.setScale(cell_width / boat_img.height);
-                console.log(boat_img.scale);
                 boat_img.index = boat_index;
                 boat_img.vertical = false;
                 this.add(boat_img);
@@ -214,9 +212,7 @@ class PrepareField extends Phaser.GameObjects.Container {
         let ship = this.last_ship;
         let ship_data = { x: 0, y: 0, x_l: 0, y_l: 0 };
         let possible = false;
-        console.log(1);
         if (ship) {
-            console.log(2, ship);
             let index = -1;
             ship_data.x = ship.index_pos.x;
             ship_data.y = ship.index_pos.y;
@@ -230,7 +226,6 @@ class PrepareField extends Phaser.GameObjects.Container {
                     index = i;
             });
             if (index >= 0) {
-                console.log(3);
                 this.prepare_frame.remove_ship({
                     x: ship_data.x,
                     y: ship_data.y,
@@ -350,6 +345,7 @@ class PrepareField extends Phaser.GameObjects.Container {
     }
     create_buttons(game_scale, cell_width) {
         let temp;
+        let text;
         this.save_button = new CustomButton(this.scene, {
             x: cell_width * 15,
             y: cell_width * 6 + 7,
@@ -357,14 +353,18 @@ class PrepareField extends Phaser.GameObjects.Container {
             frame_out: 'mini_button',
             callback: () => {
                 // if(this.is_rotate_ship()) this.rotate_ship();
+                game_container.windows_manager.show_window('save_field');
             }
         });
         temp = new Phaser.GameObjects.Image(this.scene, 0, -17, 'game_play', 'save_icon_dark');
         this.save_button.add(temp);
+        text = new Phaser.GameObjects.Text(this.scene, 0, 42, 'SAVE', { fontFamily: 'rubik', fontSize: 21 });
+        text.setOrigin(0.5);
+        this.save_button.add(text);
         this.add(this.save_button);
         this.random_button = new CustomButton(this.scene, {
             x: cell_width * 15,
-            y: cell_width * 14 + 7,
+            y: cell_width * 11 + 7,
             atlas: 'game_play',
             frame_out: 'mini_button',
             callback: () => {
@@ -373,12 +373,34 @@ class PrepareField extends Phaser.GameObjects.Container {
                 }
             }
         });
-        temp = new Phaser.GameObjects.Image(this.scene, 0, -17, 'game_play', 'rotate_icon');
+        temp = new Phaser.GameObjects.Image(this.scene, 0, -17, 'new', 'auto_icon');
         this.random_button.add(temp);
+        text = new Phaser.GameObjects.Text(this.scene, 0, 42, 'AUTO', { fontFamily: 'rubik', fontSize: 21 });
+        text.setOrigin(0.5);
+        this.random_button.add(text);
         this.add(this.random_button);
+        this.reset_button = new CustomButton(this.scene, {
+            x: cell_width * 15,
+            y: cell_width * 14 + 7,
+            atlas: 'game_play',
+            frame_out: 'mini_button',
+            callback: () => {
+                // if(this.is_random()) {
+                //     this.random_field();
+                // }
+                game_container.windows_manager.show_window('result_battle');
+            }
+        });
+        temp = new Phaser.GameObjects.Image(this.scene, 0, -17, 'new', 'reset_icon');
+        this.reset_button.add(temp);
+        text = new Phaser.GameObjects.Text(this.scene, 0, 42, 'RESET', { fontFamily: 'rubik', fontSize: 21 });
+        text.setOrigin(0.5);
+        this.reset_button.add(text);
+        this.reset_button.alpha = 0.7;
+        this.add(this.reset_button);
         this.play_button = new CustomButton(this.scene, {
-            x: this.random_button.x + 7 * cell_width,
-            y: this.random_button.y,
+            x: this.reset_button.x + 7 * cell_width,
+            y: this.reset_button.y - 7,
             frame_out: 'next_play_button',
             callback: () => {
                 if (this.prepare_frame.get_filling() >= global_data['game_play'].default_rules.filling) {
@@ -393,6 +415,9 @@ class PrepareField extends Phaser.GameObjects.Container {
             }
         });
         // this.play_button.scale = 0.7;
+        text = new Phaser.GameObjects.Text(this.scene, 0, 0, 'BATTLE', { fontFamily: 'rubik', fontSize: 64 });
+        text.setOrigin(0.5);
+        this.play_button.add(text);
         this.add(this.play_button);
         // this.next_button = new CustomButton(this.scene, {
         //     x: this.play_button.x,
@@ -414,6 +439,18 @@ class PrepareField extends Phaser.GameObjects.Container {
         let cell_width = global_data.cell_width * game_scale;
         this.done_icon = new Phaser.GameObjects.Image(this.scene, cell_width * 22, cell_width * 9, 'game_play', 'done_icon');
         this.add(this.done_icon);
+        let temp = new Phaser.GameObjects.Image(this.scene, cell_width * 8, cell_width * 3.5 + 2, 'new', 'plank');
+        temp.scale = cell_width * 10 / temp.width;
+        this.add(temp);
+        let text = new Phaser.GameObjects.Text(this.scene, cell_width * 8, cell_width * 3.5 + 2, 'SEA MAP', { fontFamily: 'rubik', fontSize: 36 });
+        text.setOrigin(0.5);
+        this.add(text);
+        temp = new Phaser.GameObjects.Image(this.scene, cell_width * 21, cell_width * 3.5 + 2, 'new', 'plank');
+        temp.scale = cell_width * 10 / temp.width;
+        this.add(temp);
+        text = new Phaser.GameObjects.Text(this.scene, cell_width * 21, cell_width * 3.5 + 2, 'SHIPS', { fontFamily: 'rubik', fontSize: 36 });
+        text.setOrigin(0.5);
+        this.add(text);
         this.create_field(cell_width);
         this.prepare_frame = new PrepareFrame();
         this.create_drop_zone(game_scale, cell_width);
@@ -436,8 +473,36 @@ class PrepareField extends Phaser.GameObjects.Container {
         let height = cell_width * 10;
         this.field_frame.fillRect(x, y, width, height);
         this.add(this.field_frame);
-        temp = new Phaser.GameObjects.Image(this.scene, cell_width * 8, cell_width * 10, 'game_play', 'field_frame');
+        temp = new Phaser.GameObjects.Image(this.scene, cell_width * 8, cell_width * 10, 'new', 'field_frame');
         temp.scale = 1.02;
         this.add(temp);
+        let text;
+        [
+            'A',
+            'B',
+            'C',
+            'D',
+            'E',
+            'F',
+            'G',
+            'H',
+            'I',
+            'J'
+        ].forEach((letter, i) => {
+            text = new Phaser.GameObjects.Text(this.scene, 2.5 * cell_width, 5.5 * cell_width + cell_width * i, letter, {
+                fontFamily: 'rubik',
+                fontSize: 36,
+                color: '#051F79'
+            });
+            text.setOrigin(0.5);
+            this.add(text);
+            text = new Phaser.GameObjects.Text(this.scene, 3.5 * cell_width + cell_width * i, 4.5 * cell_width, i.toString(), {
+                fontFamily: 'rubik',
+                fontSize: 36,
+                color: '#051F79'
+            });
+            text.setOrigin(0.5);
+            this.add(text);
+        });
     }
 }
