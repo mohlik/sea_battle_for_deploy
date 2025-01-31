@@ -37,6 +37,7 @@ class ResultBattleWindow extends Phaser.GameObjects.Container {
         let cell_width = global_data.cell_width + 2;
         let temp;
         let text;
+        let button;
         this.close_button = new CustomButton(this.scene, {
             x: cell_width * 9.1,
             y: cell_width * -5.1,
@@ -84,6 +85,66 @@ class ResultBattleWindow extends Phaser.GameObjects.Container {
         });
         text.setOrigin(0.5);
         this.add(text);
+        temp = new Phaser.GameObjects.Image(this.scene, 5, 1 * cell_width, 'game_play', 'chest_opened');
+        temp.setScale(2);
+        this.add(temp);
+        text = new Phaser.GameObjects.Text(this.scene, 5, 0.2 * cell_width, '+0 $', {
+            fontFamily: 'rubik',
+            fontSize: 48
+        });
+        text.setOrigin(0.5);
+        this.add(text);
+        button = new CustomButton(this.scene, {
+            x: 5,
+            y: cell_width * 4,
+            atlas: 'new',
+            frame_out: 'lightblue_button',
+            callback: () => {
+                // this.handler_close();
+            }
+        });
+        button.alpha = 0.7;
+        text = new Phaser.GameObjects.Text(this.scene, 0, 0, '+100 $', {
+            fontFamily: 'rubik',
+            fontSize: 36
+        });
+        text.setOrigin(0.5);
+        button.add(text);
+        this.add(button);
+        button = new CustomButton(this.scene, {
+            x: -6.2 * cell_width,
+            y: cell_width * 4,
+            atlas: 'new',
+            frame_out: 'blue_button',
+            callback: () => {
+                // this.handler_close();
+            }
+        });
+        button.alpha = 0.7;
+        text = new Phaser.GameObjects.Text(this.scene, 0, 0, 'REMATCH', {
+            fontFamily: 'rubik',
+            fontSize: 36
+        });
+        text.setOrigin(0.5);
+        button.add(text);
+        this.add(button);
+        button = new CustomButton(this.scene, {
+            x: 6.2 * cell_width,
+            y: cell_width * 4,
+            atlas: 'new',
+            frame_out: 'red_button',
+            callback: () => {
+                // this.handler_close();
+            }
+        });
+        button.alpha = 0.7;
+        text = new Phaser.GameObjects.Text(this.scene, 0, 0, 'NEXT', {
+            fontFamily: 'rubik',
+            fontSize: 36
+        });
+        text.setOrigin(0.5);
+        button.add(text);
+        this.add(button);
         temp = new Phaser.GameObjects.Image(this.scene, -6.2 * cell_width, -1.5 * cell_width, 'new', 'profile_ava');
         this.add(temp);
         temp = new Phaser.GameObjects.Image(this.scene, -6.2 * cell_width, 1 * cell_width, 'new', 'plank');

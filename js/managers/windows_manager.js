@@ -15,6 +15,8 @@ class WindowsManager extends Phaser.GameObjects.Container {
             'quit_battle': QuitBattleWindow,
             'save_field': SaveFieldWindow,
             'arsenal': ArsenalWindow,
+            'video_oil': VideoOilWindow,
+            'arena_slider': ArenaSlidereWindow,
         };
     }
     show_window(window_id, params) {

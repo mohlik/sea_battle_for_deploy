@@ -160,7 +160,9 @@ class Boot extends Phaser.Scene {
         this.load.pack('assets_pack', 'assets_pack.json', 'images');
         this.load.atlas('game_play', 'assets/game_play_atlas.png', 'assets/game_play_atlas.json');
         this.load.atlas('new', 'assets/new_atlas.png', 'assets/new_atlas.json');
+        this.load.atlas('skill_anim', 'assets/skill_anim_atlas.png', 'assets/skill_anim_atlas.json');
         this.load.json('map_items', 'assets/data/map_items.json');
+        this.load.font('rubik', 'fonts/RubikMarkerHatch-Regular.ttf', 'truetype');
         this.load.scripts('main', [
             'js/game.js',
             'js/scenes/game_menu.js',
@@ -183,6 +185,8 @@ class Boot extends Phaser.Scene {
             'js/windows/quit_battle.js',
             'js/windows/save_field.js',
             'js/windows/arsenal.js',
+            'js/windows/video_oil.js',
+            'js/windows/arena_slider.js',
         ]);
         this.load.start();
     }

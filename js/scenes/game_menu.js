@@ -35,7 +35,8 @@ class GameMenu extends Phaser.GameObjects.Container {
             y: this.profile_bg.y + this.profile_container.y,
             frame_out: 'settings_button',
             callback: () => {
-                game_container.windows_manager.show_window('test', {});
+                // game_container.windows_manager.show_window('test', {});
+                // game_container.windows_manager.show_window('result_battle');
             }
         });
         this.settings_button.setOrigin(1, 0);
@@ -45,7 +46,8 @@ class GameMenu extends Phaser.GameObjects.Container {
             y: game_size.height - 20,
             frame_out: 'play_button',
             callback: () => {
-                game_container.update_scenes('game_play');
+                // game_container.update_scenes('game_play');
+                game_container.windows_manager.show_window('arena_slider');
             }
         });
         this.play_button.setOrigin(1);

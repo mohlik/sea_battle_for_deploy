@@ -18,6 +18,8 @@ class SaveFieldWindow extends Phaser.GameObjects.Container {
         for (let x = 9; x <= count_x + 9; x++) {
             this.bg.lineBetween(x * cell_width - game_size.width / 2, cell_width * 2 - game_size.height / 2, x * cell_width - game_size.width / 2, cell_width * 15 - game_size.height / 2);
         }
+        // this.bg.lineStyle(12, 0x072279, 1);
+        // this.bg.strokeRect(cell_width * 9 - game_size.width / 2 + 6, cell_width * 2 - game_size.height / 2 + 6, cell_width * 10 - 12, cell_width * 13 - 12);
         this.add(this.bg);
         temp = new Phaser.GameObjects.Image(this.scene, 7, -cell_width * 5.32, 'game_play', 'medium_plank');
         temp.scale = 0.95;

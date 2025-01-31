@@ -89,8 +89,7 @@ class PrepareField extends Phaser.GameObjects.Container {
             pointer_start.y = localY;
         });
         object.on('pointerup', () => {
-            if (!start_drag && this.is_rotate_ship())
-                this.rotate_ship();
+            // if(!start_drag && this.is_rotate_ship()) this.rotate_ship();
         });
         object.on('dragstart', (pointer, dragX, dragY) => {
             this.clear_fantoms();
@@ -385,18 +384,20 @@ class PrepareField extends Phaser.GameObjects.Container {
             atlas: 'game_play',
             frame_out: 'mini_button',
             callback: () => {
+                if (this.is_rotate_ship())
+                    this.rotate_ship();
                 // if(this.is_random()) {
                 //     this.random_field();
                 // }
-                game_container.windows_manager.show_window('result_battle');
+                // game_container.windows_manager.show_window('result_battle');
             }
         });
         temp = new Phaser.GameObjects.Image(this.scene, 0, -17, 'new', 'reset_icon');
         this.reset_button.add(temp);
-        text = new Phaser.GameObjects.Text(this.scene, 0, 42, 'RESET', { fontFamily: 'rubik', fontSize: 21 });
+        text = new Phaser.GameObjects.Text(this.scene, 0, 42, 'ROTATE', { fontFamily: 'rubik', fontSize: 21 });
         text.setOrigin(0.5);
         this.reset_button.add(text);
-        this.reset_button.alpha = 0.7;
+        // this.reset_button.alpha = 0.7;
         this.add(this.reset_button);
         this.play_button = new CustomButton(this.scene, {
             x: this.reset_button.x + 7 * cell_width,

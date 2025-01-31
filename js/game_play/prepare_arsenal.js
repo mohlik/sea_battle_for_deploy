@@ -28,7 +28,7 @@ class PrepareArsenal extends Phaser.GameObjects.Container {
                 this.update_oil();
             }
         });
-        this.oil_txt = new Phaser.GameObjects.Text(this.scene, this.oil_bar.x, this.oil_bar.y, '', { fontSize: 24, strokeThickness: 4, stroke: '#70fg09' });
+        this.oil_txt = new Phaser.GameObjects.Text(this.scene, this.oil_bar.x, this.oil_bar.y, '', { fontFamily: 'rubik', fontSize: 36, strokeThickness: 4, stroke: '#072279' });
         this.oil_txt.setOrigin(0.5);
         this.update_oil();
         this.add([temp, this.oil_bar, this.dot_oil_button, this.oil_txt]);
@@ -158,6 +158,7 @@ class PrepareArsenal extends Phaser.GameObjects.Container {
             atlas: 'game_play',
             frame_out: 'mini_button',
             callback: () => {
+                game_container.windows_manager.show_window('video_oil');
             }
         });
         temp = new Phaser.GameObjects.Image(this.scene, -5, -17, 'new', 'oil_icon_dark');
@@ -166,7 +167,7 @@ class PrepareArsenal extends Phaser.GameObjects.Container {
         text.setOrigin(0.5);
         this.video_button.add(text);
         this.add(this.video_button);
-        this.video_button.alpha = 0.7;
+        // this.video_button.alpha = 0.7;
         this.restart_button = new CustomButton(this.scene, {
             x: cell_width * 15,
             y: cell_width * 14 + 7,
