@@ -43,7 +43,7 @@ class CustomButton extends Phaser.GameObjects.Container {
         this.out_img.on('pointerup', () => {
             if (this.was_down) {
                 this.set_out(over_default || down_default);
-                this.callback();
+                this.callback(this);
                 this.was_down = false;
             }
         });

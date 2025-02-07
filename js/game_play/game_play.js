@@ -135,6 +135,14 @@ class GamePlayScene extends Phaser.GameObjects.Container {
         this.create_skill_flat();
     }
     create_skill_flat() {
+        // @ts-ignore
+        let plugin = this.scene.plugins.get('rexshakepositionplugin');
+        // @ts-ignore
+        this.shake = plugin.add(this, {
+            duration: 4000,
+            // magnitude: 50,
+            mode: 'effect'
+        });
         this.skill_flat_active = true;
         this.skill_name = 'torpedo';
         let cell_width = global_data.cell_width + 2;
@@ -326,6 +334,9 @@ class GamePlayScene extends Phaser.GameObjects.Container {
         // shape.fillRect(cell_width * 16, cell_width * 5, cell_width * 10, cell_width * 10);
         const mask = shape.createGeometryMask();
         this.anim_container.setMask(mask);
+        this.flash = new Phaser.GameObjects.Rectangle(this.scene, game_size.width / 2, game_size.height / 2, game_size.width, game_size.height, 0xffffff, 1);
+        this.flash.alpha = 0;
+        this.add(this.flash);
     }
     hit_diapozone(x, y, x_c, y_c) {
         let success = false;
@@ -365,6 +376,7 @@ class GamePlayScene extends Phaser.GameObjects.Container {
         });
     }
     anim_atom(x, y) {
+        let temp;
         let cell_width = global_data.cell_width + 2;
         let plane = new Phaser.GameObjects.Image(this.scene, -300, y * cell_width + this.second_player_field.y + 0.5 * cell_width, 'skill_anim', 'bomber_0');
         // plane.setFlipX(true);
@@ -377,9 +389,15 @@ class GamePlayScene extends Phaser.GameObjects.Container {
             duration: 3000,
             onComplete: () => {
                 let success;
+                temp = new Phaser.GameObjects.Image(this.scene, (x + 1.5) * cell_width + this.second_player_field.x, (y + 1.5) * cell_width + this.second_player_field.y, 'under_explo');
+                temp.scale = 0;
+                this.anim_container.add(temp);
                 let explo = new Phaser.GameObjects.Sprite(this.scene, (x + 1.5) * cell_width + this.second_player_field.x, (y + 1.5) * cell_width + this.second_player_field.y, 'skill_anim', 'atom_explo_0');
                 explo.once('animationcomplete', () => {
                     success = this.hit_diapozone(x - 1, y - 1, 5, 5);
+                    temp = new Phaser.GameObjects.Image(this.scene, (x + 1.5) * cell_width + this.second_player_field.x, (y + 1.5) * cell_width + this.second_player_field.y, 'after_explo');
+                    this.add(temp);
+                    this.bringToTop(this.anim_container);
                     this.scene.tweens.add({
                         targets: explo,
                         alpha: 0,
@@ -391,7 +409,29 @@ class GamePlayScene extends Phaser.GameObjects.Container {
                 });
                 this.anim_container.add(explo);
                 this.anim_container.sendToBack(explo);
-                explo.play('atom_explo');
+                this.scene.tweens.add({
+                    targets: temp,
+                    scale: 1,
+                    duration: 100
+                });
+                this.scene.tweens.add({
+                    targets: this.flash,
+                    duration: 200,
+                    alpha: 1,
+                    onComplete: () => {
+                        temp.destroy();
+                        this.shake.shake();
+                        setTimeout(() => explo.play('atom_explo'), 1000);
+                        this.scene.tweens.add({
+                            targets: this.flash,
+                            delay: 1000,
+                            duration: 500,
+                            alpha: 0,
+                            onComplete: () => {
+                            }
+                        });
+                    }
+                });
                 this.scene.tweens.add({
                     targets: plane,
                     x: game_size.width + 300,
@@ -473,9 +513,50 @@ class GamePlayScene extends Phaser.GameObjects.Container {
             }
         });
     }
+    anim_airdef(side, y) {
+        let airdef_continer = new Phaser.GameObjects.Container(this.scene, side ? 0 : game_size.width, game_size.height + 300);
+        this.add(airdef_continer);
+        let aridef_back = new Phaser.GameObjects.Image(this.scene, 0, 0, 'skill_anim', 'airdef_back');
+        aridef_back.setOrigin(side ? 0 : 1, 1);
+        airdef_continer.add(aridef_back);
+        let airdef_front = new Phaser.GameObjects.Image(this.scene, side ? 80 : -80, -30, 'skill_anim', 'airdef');
+        airdef_front.setFlipX(!side);
+        airdef_front.setOrigin(side ? 1 : 0, 1);
+        airdef_continer.add(airdef_front);
+        const play_shots = () => {
+            for (let i = 0; i < 8; i++) {
+                let x_t = Phaser.Math.Between(0, 9);
+                let y_t = Phaser.Math.Between(y - 1, y + 1);
+                setTimeout(() => {
+                    let anim = new Phaser.GameObjects.Sprite(this.scene, (x_t + 0.5 + (side ? 16 : 2)) * this.cell_width, (y_t + 5.5) * this.cell_width, 'explo_3');
+                    anim.on('animationcomplete', () => {
+                        anim.destroy();
+                    });
+                    anim.alpha = 0.7;
+                    this.anim_container.add(anim);
+                    anim.play('shot');
+                }, Phaser.Math.Between(0, 1500));
+            }
+        };
+        this.scene.tweens.add({
+            targets: airdef_continer,
+            y: game_size.height,
+            delay: 1000,
+            duration: 500,
+            onComplete: () => {
+                play_shots();
+                this.scene.tweens.add({
+                    targets: airdef_continer,
+                    y: game_size.height + 300,
+                    delay: 1500,
+                    duration: 500
+                });
+            }
+        });
+    }
     anim_fighter(x, y) {
         let cell_width = global_data.cell_width + 2;
-        let broke = true;
+        let broke = global_data.game_play.fields[1].airdef.includes(y);
         let plane_container = new Phaser.GameObjects.Container(this.scene, -300, y * cell_width + this.second_player_field.y - 0.5 * cell_width);
         let plane = new Phaser.GameObjects.Sprite(this.scene, 0, 0, 'skill_anim', 'fighter_0');
         // plane.setFlipX(true);
@@ -483,6 +564,36 @@ class GamePlayScene extends Phaser.GameObjects.Container {
         plane_container.setAngle(90);
         this.anim_container.add(plane_container);
         if (broke) {
+            this.anim_airdef(false, y);
+            this.scene.tweens.add({
+                targets: plane_container,
+                x: 7.5 * cell_width + this.first_player_field.x,
+                duration: 2500,
+                onComplete: () => {
+                    plane.once('animationcomplete', () => {
+                    });
+                    this.scene.tweens.add({
+                        targets: plane_container,
+                        x: 10.5 * cell_width + this.first_player_field.x,
+                        scale: 0.2,
+                        duration: 1000,
+                        onComplete: () => {
+                            let anim = new Phaser.GameObjects.Sprite(this.scene, plane_container.x, plane_container.y, 'splash_1');
+                            anim.scale = 0.7;
+                            anim.on('animationcomplete', () => {
+                                this.second_player_field.hit_callback(false);
+                                anim.destroy;
+                            });
+                            this.anim_container.add(anim);
+                            anim.play('splash');
+                            plane.destroy();
+                        }
+                    });
+                    plane.play('fighter_broke');
+                }
+            });
+        }
+        else {
             this.scene.tweens.add({
                 targets: plane_container,
                 x: 5 * cell_width + this.first_player_field.x,
@@ -512,25 +623,6 @@ class GamePlayScene extends Phaser.GameObjects.Container {
                         }
                     });
                     plane.play('fighter_down');
-                }
-            });
-        }
-        else {
-            this.scene.tweens.add({
-                targets: plane_container,
-                x: x * cell_width + this.second_player_field.x - cell_width,
-                duration: 3000,
-                onComplete: () => {
-                    let success = this.hit_diapozone(x - 1, y - 1, 4, 2);
-                    this.scene.tweens.add({
-                        targets: plane_container,
-                        x: game_size.width + 300,
-                        duration: 3000,
-                        onComplete: () => {
-                            this.second_player_field.hit_callback(success);
-                            plane.destroy();
-                        }
-                    });
                 }
             });
         }
@@ -671,6 +763,19 @@ class GamePlayScene extends Phaser.GameObjects.Container {
             hideOnComplete: true
         });
         this.scene.anims.create({
+            key: 'shot',
+            frames: [
+                { key: 'explo_3' },
+                { key: 'explo_4' },
+                { key: 'explo_5' },
+                { key: 'explo_6' },
+                { key: 'explo_7' }
+            ],
+            frameRate: 16,
+            showOnStart: true,
+            hideOnComplete: true
+        });
+        this.scene.anims.create({
             key: 'splash',
             frames: [
                 { key: 'splash_1' },
@@ -683,6 +788,19 @@ class GamePlayScene extends Phaser.GameObjects.Container {
             frameRate: 16,
             showOnStart: true,
             hideOnComplete: true
+        });
+        this.scene.anims.create({
+            key: 'fighter_broke',
+            frames: [
+                { key: 'skill_anim', frame: 'fighter_6' },
+                { key: 'skill_anim', frame: 'fighter_7' },
+                { key: 'skill_anim', frame: 'fighter_8' },
+                { key: 'skill_anim', frame: 'fighter_9' },
+                { key: 'skill_anim', frame: 'fighter_10' },
+                { key: 'skill_anim', frame: 'fighter_11' },
+                { key: 'skill_anim', frame: 'fighter_12' }
+            ],
+            frameRate: 6,
         });
         this.scene.anims.create({
             key: 'fighter_down',
@@ -718,7 +836,7 @@ class GamePlayScene extends Phaser.GameObjects.Container {
                 { key: 'skill_anim', frame: 'atom_explo_5' },
                 { key: 'skill_anim', frame: 'atom_explo_6' },
             ],
-            frameRate: 8,
+            frameRate: 6,
             // showOnStart: true,
             // hideOnComplete: true
         });

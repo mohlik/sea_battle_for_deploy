@@ -22,6 +22,8 @@ class Game extends Phaser.GameObjects.Container {
         this.add(this.game_menu);
         this.game_play = new GamePlay(this.scene);
         this.add(this.game_play);
+        this.big_windows = new BigWindows(this.scene);
+        this.add(this.big_windows);
         this.create_dark();
         this.windows_manager = new WindowsManager(this.scene);
         this.add(this.windows_manager);
@@ -31,6 +33,7 @@ class Game extends Phaser.GameObjects.Container {
         const condition = {
             'game_menu': this.game_menu,
             'game_play': this.game_play,
+            'big_windows': this.big_windows,
         };
         let _visible = false;
         Object.keys(condition).forEach((condition_key) => {

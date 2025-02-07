@@ -56,7 +56,7 @@ class PrepareArsenal extends Phaser.GameObjects.Container {
             'bomber',
             'torpedo',
             'fighter',
-            // 'airdef',
+            'airdef',
             // 'submarine',
             'radar',
             // 'mine'
@@ -80,7 +80,10 @@ class PrepareArsenal extends Phaser.GameObjects.Container {
             });
             temp.on('pointerup', () => {
                 if (!this.arsenal_slider.was_move) {
-                    this.handler_buy(skill_name);
+                    if (skill_name === 'airdef')
+                        this.start_skill(skill_name);
+                    else
+                        this.handler_buy(skill_name);
                 }
                 else {
                     this.arsenal_slider.was_move = false;
@@ -218,8 +221,72 @@ class PrepareArsenal extends Phaser.GameObjects.Container {
         this.create_bar();
         this.create_arsenal();
         this.create_buttons(game_scale, cell_width);
+        this.create_skill_flat();
     }
     handler_close() {
+    }
+    create_skill_flat() {
+        let cell_width = global_data.cell_width;
+        this.skill_flat_active = true;
+        this.skill_name = 'torpedo';
+        this.skill_flat_container = new Phaser.GameObjects.Container(this.scene, 3 * cell_width, 5 * cell_width);
+        this.add(this.skill_flat_container);
+        this.skill_flat_container.visible = false;
+        let flat = new Phaser.GameObjects.Rectangle(this.scene, 5 * cell_width, 5 * cell_width, cell_width * 10, cell_width * 10, 0xffffff);
+        flat.alpha = 0.3;
+        flat.visible = true;
+        this.skill_flat_container.add(flat);
+        flat.setInteractive();
+        let flat_down = false;
+        flat
+            .on('pointerdown', () => {
+            if (this.skill_flat_active)
+                flat_down = true;
+        })
+            .on('pointerup', (pointer) => {
+            if (this.skill_flat_active) {
+                flat_down = false;
+                let y = Math.floor((pointer.position.y - this.skill_flat_container.y) / cell_width);
+                if (this.skill_name === 'airdef') {
+                    global_data.game_play.fields[0].airdef.push(y, y + 1);
+                    this.handler_buy('airdef');
+                }
+                this.skill_flat_active = false;
+                this.skill_flat_container.visible = false;
+            }
+        })
+            .on('pointerout', () => {
+            if (this.skill_flat_active)
+                flat_down = false;
+        })
+            .on('pointermove', (pointer) => {
+            if (flat_down && this.skill_flat_active) {
+                let y = Math.floor((pointer.position.y - this.skill_flat_container.y) / cell_width);
+                if (this.skill_name === 'airdef') {
+                    if (y < 0)
+                        y = 0;
+                    if (y > 8)
+                        y = 8;
+                    this.airdef_mig.y = cell_width * 1 + cell_width * y;
+                }
+            }
+        });
+        let temp;
+        this.airdef_mig = new Phaser.GameObjects.Image(this.scene, 5 * cell_width, 1 * cell_width, 'main_mig');
+        this.airdef_mig.setScale(2, 0.4);
+        this.airdef_mig.visible = false;
+        this.skill_flat_container.add(this.airdef_mig);
+    }
+    start_skill(skill_name) {
+        if (global_data.user_data.skills[skill_name].amount > 0) {
+            global_data.user_data.skills[skill_name].amount--;
+            this.skill_flat_active = true;
+            this.skill_flat_container.visible = true;
+            if (skill_name === 'airdef') {
+                this.skill_name = 'airdef';
+                this.airdef_mig.visible = true;
+            }
+        }
     }
     create_field(cell_width) {
         let temp;

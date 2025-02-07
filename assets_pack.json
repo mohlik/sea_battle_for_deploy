@@ -339,6 +339,16 @@
             },
             {
                 "type": "image",
+                "key": "after_explo",
+                "url": "assets/game_play/after_explo.png"
+            },
+            {
+                "type": "image",
+                "key": "under_explo",
+                "url": "assets/game_play/under_explo.png"
+            },
+            {
+                "type": "image",
                 "key": "explo_1",
                 "url": "assets/game_play/explo_1.png"
             },
@@ -446,6 +456,11 @@
                 "type": "image",
                 "key": "radar_mig",
                 "url": "assets/game_play/radar_mig.png"
+            },
+            {
+                "type": "image",
+                "key": "main_mig",
+                "url": "assets/game_play/main_mig.png"
             }
         ]
     },

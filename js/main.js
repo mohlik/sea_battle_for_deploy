@@ -16,7 +16,8 @@ let global_data = {
         'name': 'Player',
         'rank': {
             'stage': 'sergant',
-            'score': 0
+            'score': 890,
+            'to_up': 1000
         },
         rating: {
             score: 999
@@ -63,6 +64,52 @@ let global_data = {
             'ava': 'default',
             'frame': 'default',
             'bg': 'default'
+        },
+        'personalization': {
+            'avatars': [
+                'default',
+                'default',
+                'default',
+                'default',
+                'default',
+                'default',
+                'default',
+                'default',
+            ],
+            'frames': [
+                'default',
+                'default',
+                'default',
+                'default',
+                'default',
+                'default',
+                'default',
+                'default',
+            ],
+            'feet': [
+                'default',
+                'default'
+            ],
+            'backgrounds': [
+                'default',
+                'default'
+            ]
+        }
+    },
+    "personalization_data": {
+        avatars: {
+            default: {
+                src: '',
+                atlas: '',
+                frame: ''
+            }
+        }
+    },
+    'shop': {
+        'personalization': {
+            'avatars': [
+                { 'type': 'avatar', 'price': 100, 'valute': 'gold' }
+            ]
         }
     },
     'game_play': {
@@ -126,9 +173,7 @@ class Boot extends Phaser.Scene {
         super('Boot');
     }
     preload() {
-        if(parseFloat(window.Telegram.WebApp.version) >= 8) {
-            window.Telegram.WebApp.requestFullscreen();
-        }
+        this.load.plugin('rexshakepositionplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexshakepositionplugin.min.js', true);
         this.load.script('loader_bar', 'js/components/loader_bar.js');
         this.load.image('loading_bg', 'assets/preload/loading_bg.png');
         this.load.image('loader_bg', 'assets/preload/loader_bg.png');
@@ -167,12 +212,16 @@ class Boot extends Phaser.Scene {
             'js/game.js',
             'js/scenes/game_menu.js',
             'js/scenes/game_play.js',
+            'js/scenes/big_windows.js',
             'js/game_play/game_engine/prepare_frame.js',
             'js/game_play/game_engine/game_field.js',
             'js/game_play/game_engine/bot.js',
             'js/game_play/game_play.js',
             'js/game_play/prepare_field.js',
             'js/game_play/prepare_arsenal.js',
+            'js/big_windows/profile.js',
+            'js/big_windows/personalization.js',
+            'js/big_windows/settings.js',
             'js/game_map/game_map.js',
             'js/game_map/map_item.js',
             'js/components/custom_button.js',

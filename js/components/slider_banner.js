@@ -40,24 +40,25 @@ class SliderBanner extends Phaser.GameObjects.Container {
             .on('pointermove', (pointer) => {
             if (this.pointer_down) {
                 this.was_move = true;
-                const new_y = this.container.y + (pointer.position.y - pointer.prevPosition.y);
-                if (new_y < -this.minus_y && new_y > -(this.max_y - this.minus_y))
-                    this.container.y = new_y;
-                else if (new_y > -(this.max_y - this.minus_y))
-                    this.container.y = -this.minus_y;
-                else if (new_y < -this.minus_y)
-                    this.container.y = -(this.max_y - this.minus_y);
+                this.updateScroll(pointer.position.y - pointer.prevPosition.y);
             }
         })
             .on('wheel', (pointer, dragX, dragY) => {
-            const new_y = this.container.y - dragY * 0.3;
-            if (new_y < -this.minus_y && new_y > -(this.max_y - this.minus_y))
-                this.container.y = new_y;
-            else if (new_y > -(this.max_y - this.minus_y))
-                this.container.y = -this.minus_y;
-            else if (new_y < -this.minus_y)
-                this.container.y = -(this.max_y - this.minus_y);
+            this.updateScroll(-dragY * 0.3);
         });
+    }
+    updateScroll(deltaY) {
+        const new_y = this.container.y + deltaY;
+        if (new_y < -this.minus_y && new_y > -(this.max_y - this.minus_y)) {
+            this.container.y = new_y;
+        }
+        else if (new_y > -(this.max_y - this.minus_y)) {
+            this.container.y = -this.minus_y;
+        }
+        else if (new_y < -this.minus_y) {
+            this.container.y = -(this.max_y - this.minus_y);
+        }
+        this.emit('scrollProgress', this.getScrollProgress());
     }
     get_max_y() {
         const childs = [];
@@ -110,12 +111,17 @@ class SliderBanner extends Phaser.GameObjects.Container {
         this.container.mask = this.temp_mask;
         this.container.setPosition(-this.minus_x, -this.minus_y);
     }
-    add_child(child) {
+    add_child(child, max_y) {
         this.container.add(child);
-        this.max_y = this.get_max_y() + 20;
+        this.max_y = this.get_max_y() + (max_y ? max_y : 20);
     }
     replace_child(from, to) {
         this.container.replace(from, to);
         this.max_y = this.get_max_y() + 20;
+    }
+    getScrollProgress() {
+        const minScroll = -this.minus_y;
+        const maxScroll = -(this.max_y - this.minus_y);
+        return (this.container.y - maxScroll) / (minScroll - maxScroll);
     }
 }

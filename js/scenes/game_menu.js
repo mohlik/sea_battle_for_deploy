@@ -28,6 +28,11 @@ class GameMenu extends Phaser.GameObjects.Container {
         this.ava_frame = new Phaser.GameObjects.Image(this.scene, 0, 0, 'ava_frame');
         this.ava = new Phaser.GameObjects.Image(this.scene, this.ava_frame.x, this.ava_frame.y, 'default_character');
         this.profile_bg = new Phaser.GameObjects.Image(this.scene, this.ava_frame.x + this.ava_frame.width / 2, this.ava_frame.y - this.ava_frame.height / 2, 'profile_bg');
+        this.profile_bg.setInteractive();
+        this.profile_bg.on('pointerup', () => {
+            game_container.big_windows.update_scenes('profile');
+            game_container.update_scenes('big_windows');
+        });
         this.profile_bg.setOrigin(0);
         this.profile_container.add([this.ava_frame, this.profile_bg, this.ava]);
         this.settings_button = new CustomButton(this.scene, {
@@ -35,6 +40,8 @@ class GameMenu extends Phaser.GameObjects.Container {
             y: this.profile_bg.y + this.profile_container.y,
             frame_out: 'settings_button',
             callback: () => {
+                game_container.big_windows.update_scenes('settings');
+                game_container.update_scenes('big_windows');
                 // game_container.windows_manager.show_window('test', {});
                 // game_container.windows_manager.show_window('result_battle');
             }
