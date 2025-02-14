@@ -46,12 +46,20 @@ class GamePlay extends Phaser.GameObjects.Container {
                 _visible = true;
             else
                 _visible = false;
-            if (condition[condition_key])
+            if (condition[condition_key] && condition[condition_key].visible && !_visible) {
+                this.bringToTop(condition[condition_key]);
+                // game_container.anims_manager.get_big_window_move_anim(condition[condition_key], () => {
                 condition[condition_key].visible = _visible;
+                condition[condition_key].handler_close();
+                // });
+            }
+            else if (condition[condition_key]) {
+                condition[condition_key].clearMask();
+                condition[condition_key].visible = _visible;
+            }
+            // if(condition[condition_key]) condition[condition_key].visible = _visible;
             if (_visible)
                 condition[condition_key].show();
-            else
-                condition[condition_key].handler_close();
         });
     }
     create_interface() {

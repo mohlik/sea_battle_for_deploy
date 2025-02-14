@@ -226,6 +226,17 @@
                 "key": "arsenal_slider",
                 "url": "assets/ui/arsenal_slider.png"
             },
+            {
+                "type": "image",
+                "key": "default_frame",
+                "url": "assets/ui/default_frame.png"
+            },
+
+            {
+                "type": "image",
+                "key": "page_turing",
+                "url": "assets/ui/page_turing.png"
+            },
 
             {
                 "type": "image",
@@ -461,6 +472,11 @@
                 "type": "image",
                 "key": "main_mig",
                 "url": "assets/game_play/main_mig.png"
+            },
+            {
+                "type": "image",
+                "key": "atom_mig",
+                "url": "assets/game_play/atom_mig.png"
             }
         ]
     },

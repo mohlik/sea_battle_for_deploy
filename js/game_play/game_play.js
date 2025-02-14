@@ -186,7 +186,7 @@ class GamePlayScene extends Phaser.GameObjects.Container {
                         x = 6;
                     if (y > 6)
                         y = 6;
-                    this.anim_atom(x, y);
+                    this.anim_atom(x - 1, y - 1);
                     this.atom_mig.visible = false;
                 }
                 else if (this.skill_name === 'fighter') {
@@ -208,12 +208,20 @@ class GamePlayScene extends Phaser.GameObjects.Container {
                         x = 1;
                     if (y < 1)
                         y = 1;
-                    if (x > 7)
-                        x = 7;
-                    if (y > 7)
-                        y = 7;
+                    if (x > 8)
+                        x = 8;
+                    if (y > 8)
+                        y = 8;
                     this.anim_radar(x, y);
                     this.radar_mig.visible = false;
+                }
+                else if (this.skill_name === 'submarine') {
+                    if (x < 1)
+                        x = 1;
+                    if (x > 8)
+                        x = 8;
+                    this.anim_submarine(x, y);
+                    this.submarine_mig.visible = false;
                 }
                 this.skill_flat_active = false;
                 this.skill_flat_container.visible = false;
@@ -239,26 +247,33 @@ class GamePlayScene extends Phaser.GameObjects.Container {
                     this.bomber_mig.setPosition(cell_width * 0.5 + cell_width * x - 5 * cell_width, cell_width * 0.5 + cell_width * y - 5 * cell_width);
                 }
                 else if (this.skill_name === 'atom') {
-                    if (x < 1)
-                        x = 1;
-                    if (y < 1)
-                        y = 1;
-                    if (x > 6)
-                        x = 6;
-                    if (y > 6)
-                        y = 6;
-                    this.atom_mig.setPosition(cell_width * 0.5 + cell_width * x - 5 * cell_width, cell_width * 0.5 + cell_width * y - 5 * cell_width);
+                    if (x < 2)
+                        x = 2;
+                    if (y < 2)
+                        y = 2;
+                    if (x > 7)
+                        x = 7;
+                    if (y > 7)
+                        y = 7;
+                    this.atom_mig.setPosition(-cell_width * 0.5 + cell_width * x - 5 * cell_width, -cell_width * 0.5 + cell_width * y - 5 * cell_width);
                 }
                 else if (this.skill_name === 'radar') {
                     if (x < 1)
                         x = 1;
                     if (y < 1)
                         y = 1;
-                    if (x > 7)
-                        x = 7;
-                    if (y > 7)
-                        y = 7;
+                    if (x > 8)
+                        x = 8;
+                    if (y > 8)
+                        y = 8;
                     this.radar_mig.setPosition(cell_width * 0.5 + cell_width * x - 5 * cell_width, cell_width * 0.5 + cell_width * y - 5 * cell_width);
+                }
+                else if (this.skill_name === 'submarine') {
+                    if (x < 1)
+                        x = 1;
+                    if (x > 8)
+                        x = 8;
+                    this.submarine_mig.setPosition(cell_width * 0.5 + cell_width * x - 5 * cell_width, cell_width * 0.5 + cell_width * y - 5 * cell_width);
                 }
                 else if (this.skill_name === 'fighter') {
                     if (y < 1)
@@ -276,48 +291,40 @@ class GamePlayScene extends Phaser.GameObjects.Container {
         });
         let temp;
         this.bomber_mig = new Phaser.GameObjects.Container(this.scene, cell_width * 1.5 - cell_width * 5, cell_width * 1.5 - cell_width * 5);
-        for (let y = 0; y < 3; y++) {
-            for (let x = 0; x < 3; x++) {
-                temp = new Phaser.GameObjects.Image(this.scene, -cell_width + cell_width * x, -cell_width + cell_width * y, 'point_cell');
-                this.bomber_mig.add(temp);
-            }
-        }
+        temp = new Phaser.GameObjects.Image(this.scene, -cell_width + cell_width * 1.5, -cell_width + cell_width * 1.5, 'main_mig');
+        temp.setScale(0.8);
+        this.bomber_mig.add(temp);
         this.bomber_mig.visible = false;
         this.skill_flat_container.add(this.bomber_mig);
         this.atom_mig = new Phaser.GameObjects.Container(this.scene, cell_width * 1.5 - cell_width * 5, cell_width * 1.5 - cell_width * 5);
-        for (let y = 0; y < 5; y++) {
-            for (let x = 0; x < 5; x++) {
-                temp = new Phaser.GameObjects.Image(this.scene, -cell_width + cell_width * x, -cell_width + cell_width * y, 'point_cell');
-                this.atom_mig.add(temp);
-            }
-        }
+        temp = new Phaser.GameObjects.Image(this.scene, -cell_width + cell_width * 2, -cell_width + cell_width * 2, 'main_mig');
+        this.atom_mig.add(temp);
+        temp = new Phaser.GameObjects.Image(this.scene, -cell_width + cell_width * 2, -cell_width + cell_width * 2, 'atom_mig');
+        this.atom_mig.add(temp);
         this.atom_mig.visible = false;
         this.skill_flat_container.add(this.atom_mig);
         this.radar_mig = new Phaser.GameObjects.Container(this.scene, cell_width * 1.5 - cell_width * 5, cell_width * 1.5 - cell_width * 5);
-        for (let y = 0; y < 4; y++) {
-            for (let x = 0; x < 4; x++) {
-                temp = new Phaser.GameObjects.Image(this.scene, -cell_width + cell_width * x, -cell_width + cell_width * y, 'point_cell');
-                this.radar_mig.add(temp);
-            }
-        }
+        temp = new Phaser.GameObjects.Image(this.scene, -cell_width + cell_width * 1, -cell_width + cell_width * 1, 'main_mig');
+        temp.setScale(0.6);
+        this.radar_mig.add(temp);
         this.radar_mig.visible = false;
         this.skill_flat_container.add(this.radar_mig);
+        this.submarine_mig = new Phaser.GameObjects.Container(this.scene, cell_width * 1.5 - cell_width * 5, cell_width * 0.5 - cell_width * 5);
+        temp = new Phaser.GameObjects.Image(this.scene, -cell_width + cell_width * 1, -cell_width + cell_width * 1, 'main_mig');
+        temp.setScale(0.6, 0.2);
+        this.submarine_mig.add(temp);
+        this.submarine_mig.visible = false;
+        this.skill_flat_container.add(this.submarine_mig);
         this.fighter_mig = new Phaser.GameObjects.Container(this.scene, cell_width * 2.5 - cell_width * 5, cell_width * 1.5 - cell_width * 5);
-        for (let y = 0; y < 2; y++) {
-            for (let x = 0; x < 4; x++) {
-                temp = new Phaser.GameObjects.Image(this.scene, -cell_width * 2 + cell_width * x, -cell_width * 1 + cell_width * y, 'point_cell');
-                this.fighter_mig.add(temp);
-            }
-        }
+        temp = new Phaser.GameObjects.Image(this.scene, -cell_width * 2 + cell_width * 1.5, -cell_width * 1 + cell_width * 0.5, 'main_mig');
+        temp.setScale(0.8, 0.4);
+        this.fighter_mig.add(temp);
         this.fighter_mig.visible = false;
         this.skill_flat_container.add(this.fighter_mig);
         this.torpedo_mig = new Phaser.GameObjects.Container(this.scene, cell_width * 0.5, -cell_width * 3.5);
-        for (let y = 0; y < 1; y++) {
-            for (let x = 0; x < 10; x++) {
-                temp = new Phaser.GameObjects.Image(this.scene, -cell_width * 5 + cell_width * x, -cell_width * 1 + cell_width * y, 'point_cell');
-                this.torpedo_mig.add(temp);
-            }
-        }
+        temp = new Phaser.GameObjects.Image(this.scene, -cell_width * 5 + cell_width * 4.5, -cell_width * 1 + cell_width * 0, 'main_mig');
+        temp.setScale(2.05, 0.2);
+        this.torpedo_mig.add(temp);
         this.torpedo_mig.visible = false;
         this.skill_flat_container.add(this.torpedo_mig);
         // this.bomber_mig = new Phaser.GameObjects.Container(this.scene, 0, 0);
@@ -330,7 +337,7 @@ class GamePlayScene extends Phaser.GameObjects.Container {
         this.add(this.anim_container);
         const shape = this.scene.make.graphics();
         shape.fillStyle(0x00000, 1);
-        shape.fillRect(cell_width * 2, cell_width * 5, cell_width * 24, cell_width * 10);
+        shape.fillRect(cell_width * 2, 0, cell_width * 24, game_size.height);
         // shape.fillRect(cell_width * 16, cell_width * 5, cell_width * 10, cell_width * 10);
         const mask = shape.createGeometryMask();
         this.anim_container.setMask(mask);
@@ -362,7 +369,7 @@ class GamePlayScene extends Phaser.GameObjects.Container {
             x: x * cell_width + this.second_player_field.x - cell_width,
             duration: 3000,
             onComplete: () => {
-                let success = this.hit_diapozone(x - 1, y - 1, 3, 3);
+                let success = this.hit_diapozone(x - 1, y - 1, 4, 4);
                 this.scene.tweens.add({
                     targets: plane,
                     x: game_size.width + 300,
@@ -375,10 +382,119 @@ class GamePlayScene extends Phaser.GameObjects.Container {
             }
         });
     }
+    anim_submarine(x, y) {
+        let submarine = new Phaser.GameObjects.Sprite(this.scene, game_size.width / 2, this.second_player_field.y + (y + 0.5) * this.cell_width, 'skill_anim', 'submarine_0');
+        submarine.setAngle(90);
+        let torpedo_up = new Phaser.GameObjects.Image(this.scene, this.second_player_field.x + (x + 1.5) * this.cell_width, this.second_player_field.y + (y + 0.5) * this.cell_width, 'skill_anim', 'torpedo_down');
+        torpedo_up.visible = false;
+        torpedo_up.setAngle(-90);
+        let torpedo_down = new Phaser.GameObjects.Image(this.scene, this.second_player_field.x + (x + 0.5) * this.cell_width, this.second_player_field.y + (y + 0.5) * this.cell_width, 'skill_anim', 'torpedo_down');
+        torpedo_down.visible = false;
+        torpedo_down.setAngle(90);
+        this.anim_container.add(torpedo_down);
+        this.anim_container.add(torpedo_up);
+        this.anim_container.add(submarine);
+        let torpedo_up_iter = y - 1;
+        const torpedo_up_move = (iter) => {
+            if (torpedo_up_iter > 0) {
+                this.scene.tweens.add({
+                    targets: torpedo_up,
+                    y: `-=${this.cell_width}`,
+                    duration: 300,
+                    onComplete: () => {
+                        let succsec = false;
+                        succsec = this.second_player_field.hit(x + 1, torpedo_up_iter, true);
+                        torpedo_up_iter--;
+                        if (succsec)
+                            torpedo_up_iter = -1;
+                        torpedo_up_move(iter + 1);
+                    }
+                });
+            }
+            else {
+                this.scene.tweens.add({
+                    targets: torpedo_up,
+                    alpha: 0,
+                    duration: 100,
+                    onComplete: () => {
+                        if (torpedo_up_iter > -1)
+                            this.second_player_field.hit(x + 1, torpedo_up_iter, true);
+                        else {
+                        }
+                    }
+                });
+            }
+        };
+        let torpedo_down_iter = y + 1;
+        const torpedo_down_move = (iter) => {
+            if (torpedo_down_iter < 9) {
+                this.scene.tweens.add({
+                    targets: torpedo_down,
+                    y: `+=${this.cell_width}`,
+                    duration: 300,
+                    onComplete: () => {
+                        let succsec = false;
+                        succsec = this.second_player_field.hit(x, torpedo_down_iter, true);
+                        torpedo_down_iter++;
+                        if (succsec)
+                            torpedo_down_iter = 10;
+                        torpedo_down_move(iter + 1);
+                    }
+                });
+            }
+            else {
+                this.scene.tweens.add({
+                    targets: torpedo_down,
+                    alpha: 0,
+                    duration: 100,
+                    onComplete: () => {
+                        if (torpedo_down_iter < 10)
+                            this.second_player_field.hit(x, torpedo_down_iter, true);
+                        else {
+                        }
+                    }
+                });
+            }
+        };
+        this.scene.tweens.add({
+            targets: submarine,
+            x: this.second_player_field.x + (x + 0.5) * this.cell_width,
+            duration: 300 * x + 400,
+            onComplete: () => {
+                this.scene.tweens.add({
+                    targets: this.second_player_field,
+                    alpha: 0.5,
+                    duration: 500
+                });
+                submarine.once('animationcomplete', () => {
+                    torpedo_up.visible = true;
+                    torpedo_down.visible = true;
+                    torpedo_up_move(0);
+                    torpedo_down_move(0);
+                    setTimeout(() => {
+                        this.scene.tweens.add({
+                            targets: this.second_player_field,
+                            alpha: 1,
+                            duration: 500
+                        });
+                        submarine.once('animationcomplete', () => {
+                            this.scene.tweens.add({
+                                targets: submarine,
+                                x: game_size.width + 100,
+                                duration: 3000
+                            });
+                        });
+                        submarine.play('submarine_down');
+                    }, 1000);
+                });
+                submarine.play('submarine_up');
+            }
+        });
+    }
     anim_atom(x, y) {
         let temp;
         let cell_width = global_data.cell_width + 2;
-        let plane = new Phaser.GameObjects.Image(this.scene, -300, y * cell_width + this.second_player_field.y + 0.5 * cell_width, 'skill_anim', 'bomber_0');
+        let plane = new Phaser.GameObjects.Image(this.scene, -300, y * cell_width + this.second_player_field.y + 1.5 * cell_width, 'skill_anim', 'bomber_0');
         // plane.setFlipX(true);
         plane.setAngle(90);
         plane.scale = 1.2;
@@ -449,13 +565,13 @@ class GamePlayScene extends Phaser.GameObjects.Container {
         let cells = [];
         let data_cell;
         let temp;
-        let back = new Phaser.GameObjects.Image(this.scene, (x + 1) * cell_width + this.second_player_field.x, (y + 1) * cell_width + this.second_player_field.y, 'skill_anim', 'radar_back');
-        back.scale = 0.8;
+        let back = new Phaser.GameObjects.Image(this.scene, (x + 0.5) * cell_width + this.second_player_field.x, (y + 0.5) * cell_width + this.second_player_field.y, 'skill_anim', 'radar_back');
+        back.scale = 0.6;
         back.alpha = 0;
         this.anim_container.add(back);
-        let arrow = new Phaser.GameObjects.Image(this.scene, (x + 1) * cell_width + this.second_player_field.x, (y + 1) * cell_width + this.second_player_field.y, 'skill_anim', 'radar_arrow');
+        let arrow = new Phaser.GameObjects.Image(this.scene, (x + 0.5) * cell_width + this.second_player_field.x, (y + 0.5) * cell_width + this.second_player_field.y, 'skill_anim', 'radar_arrow');
         arrow.setOrigin(0, 0);
-        arrow.scale = 0.8;
+        arrow.scale = 0.6;
         arrow.alpha = 0;
         this.anim_container.add(arrow);
         this.scene.tweens.add({
@@ -478,8 +594,8 @@ class GamePlayScene extends Phaser.GameObjects.Container {
                     alpha: 0,
                     duration: 300,
                     onComplete: () => {
-                        for (let y_i = y - 1; y_i < y + 3; y_i++) {
-                            for (let x_i = x - 1; x_i < x + 3; x_i++) {
+                        for (let y_i = y - 1; y_i < y + 2; y_i++) {
+                            for (let x_i = x - 1; x_i < x + 2; x_i++) {
                                 data_cell = this.second_player_field.get_cell(x_i, y_i, true);
                                 if (data_cell && data_cell.succ) {
                                     temp = new Phaser.GameObjects.Image(this.scene, x_i * cell_width + 16.5 * cell_width, y_i * cell_width + 5.5 * cell_width, 'cell_false');
@@ -560,6 +676,7 @@ class GamePlayScene extends Phaser.GameObjects.Container {
         let plane_container = new Phaser.GameObjects.Container(this.scene, -300, y * cell_width + this.second_player_field.y - 0.5 * cell_width);
         let plane = new Phaser.GameObjects.Sprite(this.scene, 0, 0, 'skill_anim', 'fighter_0');
         // plane.setFlipX(true);
+        plane.scale = 1.2;
         plane_container.add(plane);
         plane_container.setAngle(90);
         this.anim_container.add(plane_container);
@@ -630,27 +747,61 @@ class GamePlayScene extends Phaser.GameObjects.Container {
     }
     anim_torpedo(y) {
         let cell_width = global_data.cell_width + 2;
-        let plane = new Phaser.GameObjects.Image(this.scene, -300, y * cell_width + this.second_player_field.y - cell_width, 'torpedo');
-        plane.setFlipX(true);
+        let torpedo = new Phaser.GameObjects.Image(this.scene, this.second_player_field.x - 50, (y + 0.5) * cell_width + this.second_player_field.y, 'skill_anim', 'torpedo_up');
+        let plane = new Phaser.GameObjects.Image(this.scene, -300, (y + 0.5) * cell_width + this.second_player_field.y, 'skill_anim', 'torpedo_0');
+        plane.setAngle(90);
+        plane.scale = 1.2;
+        torpedo.scale = 1.2;
+        torpedo.visible = false;
+        this.anim_container.add(torpedo);
         this.anim_container.add(plane);
         let torpedo_iter = 0;
-        const torpedo_move = () => {
-            setTimeout(() => {
-                let succsec = false;
-                succsec = this.second_player_field.hit(torpedo_iter, y, true);
-                torpedo_iter++;
-                if (succsec)
-                    torpedo_iter = 10;
-                if (torpedo_iter < 10)
-                    torpedo_move();
-            }, 100);
+        const torpedo_move = (iter) => {
+            if (torpedo_iter < 9) {
+                this.scene.tweens.add({
+                    targets: torpedo,
+                    x: `+=${cell_width}`,
+                    duration: 300,
+                    onComplete: () => {
+                        let succsec = false;
+                        succsec = this.second_player_field.hit(torpedo_iter, y, true);
+                        torpedo_iter++;
+                        if (succsec)
+                            torpedo_iter = 10;
+                        torpedo_move(iter + 1);
+                    }
+                });
+            }
+            else {
+                this.scene.tweens.add({
+                    targets: torpedo,
+                    alpha: 0,
+                    duration: 100,
+                    onComplete: () => {
+                        if (torpedo_iter < 10)
+                            this.second_player_field.hit(torpedo_iter, y, true);
+                        else {
+                        }
+                    }
+                });
+            }
         };
         this.scene.tweens.add({
             targets: plane,
-            x: game_size.width / 2,
+            x: this.second_player_field.x - 50,
             duration: 3000,
             onComplete: () => {
-                torpedo_move();
+                torpedo.visible = true;
+                torpedo_move(0);
+                this.scene.tweens.add({
+                    targets: torpedo,
+                    duration: 300,
+                    x: this.second_player_field.x + 0.5 * cell_width,
+                    scale: 1,
+                    onComplete: () => {
+                        torpedo.setFrame('torpedo_down');
+                    }
+                });
                 this.scene.tweens.add({
                     targets: plane,
                     x: game_size.width + 300,
@@ -840,6 +991,28 @@ class GamePlayScene extends Phaser.GameObjects.Container {
             // showOnStart: true,
             // hideOnComplete: true
         });
+        this.scene.anims.create({
+            key: 'submarine_up',
+            frames: [
+                { key: 'skill_anim', frame: 'submarine_0' },
+                { key: 'skill_anim', frame: 'submarine_1' },
+                { key: 'skill_anim', frame: 'submarine_2' },
+                { key: 'skill_anim', frame: 'submarine_3' },
+                { key: 'skill_anim', frame: 'submarine_4' },
+            ],
+            frameRate: 6
+        });
+        this.scene.anims.create({
+            key: 'submarine_down',
+            frames: [
+                { key: 'skill_anim', frame: 'submarine_4' },
+                { key: 'skill_anim', frame: 'submarine_3' },
+                { key: 'skill_anim', frame: 'submarine_2' },
+                { key: 'skill_anim', frame: 'submarine_1' },
+                { key: 'skill_anim', frame: 'submarine_0' },
+            ],
+            frameRate: 6
+        });
         let game_scale = 1;
         let cell_width = global_data.cell_width * game_scale + 2;
         this.cell_width = cell_width;
@@ -1010,6 +1183,10 @@ class GamePlayScene extends Phaser.GameObjects.Container {
             else if (skill_name === 'radar') {
                 this.skill_name = 'radar';
                 this.radar_mig.visible = true;
+            }
+            else if (skill_name === 'submarine') {
+                this.skill_name = 'submarine';
+                this.submarine_mig.visible = true;
             }
         }
     }

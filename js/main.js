@@ -65,6 +65,7 @@ let global_data = {
             'frame': 'default',
             'bg': 'default'
         },
+        'flag': 'UA',
         'personalization': {
             'avatars': [
                 'default',
@@ -147,7 +148,7 @@ let global_data = {
         },
         'submarine': {
             price: 200,
-            max: 1
+            max: 2
         },
         'radar': {
             price: 150,
@@ -206,6 +207,8 @@ class Boot extends Phaser.Scene {
         this.load.atlas('game_play', 'assets/game_play_atlas.png', 'assets/game_play_atlas.json');
         this.load.atlas('new', 'assets/new_atlas.png', 'assets/new_atlas.json');
         this.load.atlas('skill_anim', 'assets/skill_anim_atlas.png', 'assets/skill_anim_atlas.json');
+        this.load.atlas('game_menu', 'assets/game_menu.png', 'assets/game_menu.json');
+        this.load.atlas('flags', 'assets/flags.png', 'assets/flags.json');
         this.load.json('map_items', 'assets/data/map_items.json');
         this.load.font('rubik', 'fonts/RubikMarkerHatch-Regular.ttf', 'truetype');
         this.load.scripts('main', [
@@ -222,6 +225,7 @@ class Boot extends Phaser.Scene {
             'js/big_windows/profile.js',
             'js/big_windows/personalization.js',
             'js/big_windows/settings.js',
+            'js/big_windows/leaderboard.js',
             'js/game_map/game_map.js',
             'js/game_map/map_item.js',
             'js/components/custom_button.js',
@@ -229,6 +233,7 @@ class Boot extends Phaser.Scene {
             'js/components/slider_banner.js',
             'js/managers/language_manager.js',
             'js/managers/windows_manager.js',
+            'js/managers/anims_manager.js',
             'js/windows/test_window.js',
             'js/windows/result_battle.js',
             'js/windows/quit_battle.js',

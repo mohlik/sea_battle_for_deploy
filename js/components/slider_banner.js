@@ -49,14 +49,14 @@ class SliderBanner extends Phaser.GameObjects.Container {
     }
     updateScroll(deltaY) {
         const new_y = this.container.y + deltaY;
-        if (new_y < -this.minus_y && new_y > -(this.max_y - this.minus_y)) {
+        if (new_y < -this.minus_y && new_y > -(this.max_y)) {
             this.container.y = new_y;
         }
         else if (new_y > -(this.max_y - this.minus_y)) {
             this.container.y = -this.minus_y;
         }
         else if (new_y < -this.minus_y) {
-            this.container.y = -(this.max_y - this.minus_y);
+            this.container.y = -(this.max_y);
         }
         this.emit('scrollProgress', this.getScrollProgress());
     }
@@ -121,7 +121,7 @@ class SliderBanner extends Phaser.GameObjects.Container {
     }
     getScrollProgress() {
         const minScroll = -this.minus_y;
-        const maxScroll = -(this.max_y - this.minus_y);
+        const maxScroll = -(this.max_y);
         return (this.container.y - maxScroll) / (minScroll - maxScroll);
     }
 }

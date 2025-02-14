@@ -2,6 +2,10 @@ class Game extends Phaser.GameObjects.Container {
     constructor(scene) {
         super(scene);
     }
+    init_flags() {
+        global_data['flags'] = Object.keys(this.scene.textures.get('flags').frames).filter(e => e !== '__BASE');
+        console.log(global_data['flags']);
+    }
     create_dark() {
         this.dark = new Phaser.GameObjects.Graphics(this.scene);
         this.dark.fillStyle(0x23232F, 0.6);
@@ -17,6 +21,9 @@ class Game extends Phaser.GameObjects.Container {
         this.add(this.dark);
     }
     init() {
+        this.init_flags();
+        this.anims_manager = new AnimsManager(this.scene);
+        this.add(this.anims_manager);
         this.language_manager = new LanguageManager(this.scene);
         this.game_menu = new GameMenu(this.scene);
         this.add(this.game_menu);

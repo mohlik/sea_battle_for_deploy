@@ -4,6 +4,25 @@ class PrepareArsenal extends Phaser.GameObjects.Container {
         this.name = 'prepare_field';
         this.init(params);
     }
+    create_back() {
+        this.cell_width = global_data.cell_width;
+        let temp;
+        this.bg = new Phaser.GameObjects.Graphics(this.scene);
+        this.bg.fillStyle(0xE9E8E3, 1);
+        this.bg.fillRect(0, 0, game_size.width, game_size.height);
+        let count_y = Math.ceil(game_size.height / this.cell_width);
+        let count_x = Math.ceil(game_size.width / this.cell_width);
+        this.bg.lineStyle(2, 0x6171A4, 0.7);
+        for (let y = 0; y <= count_y; y++) {
+            this.bg.lineBetween(0, y * this.cell_width, game_size.width, y * this.cell_width);
+        }
+        for (let x = 0; x <= count_x; x++) {
+            this.bg.lineBetween(x * this.cell_width, 0, x * this.cell_width, game_size.height);
+        }
+        this.bg.lineStyle(7, 0xCF4038, 0.9);
+        this.bg.lineBetween(0, 3 * this.cell_width, game_size.width, 3 * this.cell_width);
+        this.add(this.bg);
+    }
     show(params = {}) {
         this.ships = global_data.game_play.fields[0].ships;
         this.fill_ships(global_data.cell_width);
@@ -57,7 +76,7 @@ class PrepareArsenal extends Phaser.GameObjects.Container {
             'torpedo',
             'fighter',
             'airdef',
-            // 'submarine',
+            'submarine',
             'radar',
             // 'mine'
         ].forEach((skill_name, i) => {
@@ -208,6 +227,7 @@ class PrepareArsenal extends Phaser.GameObjects.Container {
     init(params) {
         let game_scale = 1;
         let cell_width = global_data.cell_width * game_scale;
+        this.create_back();
         let temp = new Phaser.GameObjects.Image(this.scene, cell_width * 8, cell_width * 3.5 + 2, 'new', 'plank');
         temp.scale = cell_width * 10 / temp.width;
         this.add(temp);

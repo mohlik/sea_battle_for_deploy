@@ -482,13 +482,15 @@ class Personalization extends Phaser.GameObjects.Container {
             scroller_yours.y = 5.5 * cell_width + ((1 - val) * 10 * cell_width);
         });
         let your_avatars = global_data.user_data.personalization.avatars;
-        let temp;
-        for (let ava_index = 0; ava_index < 100; ava_index++) {
-            let x = (ava_index % 5) * cell_width * 4.5 + cell_width * 2;
-            let y = Math.floor(ava_index / 5) * cell_width * 5 + cell_width * 1.5;
-            temp = new Phaser.GameObjects.Image(this.scene, x, y, 'new', 'profile_ava');
+        global_data['flags'].forEach((flag_name, flag_index) => {
+            let x = (flag_index % 5) * cell_width * 4.5 + cell_width * 2;
+            let y = Math.floor(flag_index / 5) * cell_width * 5 + cell_width * 1.5;
+            let temp = new Phaser.GameObjects.Image(this.scene, x, y, 'default_frame');
             slider_yours.add_child(temp);
             temp.setInteractive();
+            let flag = new Phaser.GameObjects.Image(this.scene, x, y, 'flags', flag_name);
+            flag.setScale(0.3);
+            slider_yours.add_child(flag);
             temp.on('pointerdown', () => {
                 slider_yours.pointer_down = true;
             });
@@ -508,16 +510,27 @@ class Personalization extends Phaser.GameObjects.Container {
             temp.on('pointermove', (pointer) => {
                 slider_yours.emit('pointermove', pointer);
             });
-            temp = new Phaser.GameObjects.Image(this.scene, x, y + temp.height / 2 + 0.4 * cell_width, 'new', 'blue_button');
+            temp = new Phaser.GameObjects.Image(this.scene, x, y + temp.height / 2 + 0.4 * cell_width, 'new', flag_name !== global_data['user_data']['flag'] ? 'lightblue_button' : 'blue_button');
+            // temp.alpha = 0.7;
             temp.scale = 0.8;
             temp.setInteractive();
             slider_yours.add_child(temp);
+            if (true) { //flag_name !== global_data['user_data']['flag']) {
+                text = new Phaser.GameObjects.Text(this.scene, temp.x, temp.y, 'CHOOSE', { fontFamily: 'rubik', fontSize: 36, color: '#FFFFFF' });
+                text.setOrigin(0.5);
+                slider_yours.add_child(text);
+                temp['text'] = text;
+            }
             temp.on('pointerdown', () => {
                 slider_yours.pointer_down = true;
             });
             temp.on('pointerup', () => {
                 if (!slider_yours.was_move) {
-                    this.handler_choose_ava('flag');
+                    if (flag_name !== global_data['user_data']['flag']) {
+                        temp['text'].destroy();
+                        temp.setFrame('blue_button');
+                        global_data['user_data'].flag = flag.frame.name;
+                    }
                 }
                 else {
                     slider_yours.was_move = false;
@@ -531,9 +544,7 @@ class Personalization extends Phaser.GameObjects.Container {
             temp.on('pointermove', (pointer) => {
                 slider_yours.emit('pointermove', pointer);
             });
-        }
-        // your_avatars.forEach((ava_id, ava_index) => {
-        // });
+        });
     }
     create_background_page() {
         let cell_width = global_data.cell_width;

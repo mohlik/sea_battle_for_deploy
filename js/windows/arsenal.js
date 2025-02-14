@@ -39,7 +39,7 @@ class ArsenalWindow extends Phaser.GameObjects.Container {
             'torpedo',
             'fighter',
             // 'airdef',
-            // 'submarine',
+            'submarine',
             'radar',
             // 'mine'
         ].forEach((skill_name, i) => {
