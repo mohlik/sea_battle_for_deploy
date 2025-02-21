@@ -17,6 +17,7 @@ class WindowsManager extends Phaser.GameObjects.Container {
             'arsenal': ArsenalWindow,
             'video_oil': VideoOilWindow,
             'arena_slider': ArenaSlidereWindow,
+            'daily_reward': DailyRewardWindow,
         };
     }
     show_window(window_id, params) {

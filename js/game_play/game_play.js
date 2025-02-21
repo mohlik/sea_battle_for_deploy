@@ -132,7 +132,10 @@ class GamePlayScene extends Phaser.GameObjects.Container {
         if (global_data.game_play.with_bot)
             this.bot = new Bot(global_data.game_play.fields[0].field);
         // this.create_arsenal();
-        this.create_skill_flat();
+        if (global_data.game_play.with_bot &&
+            global_data.game_play.advanced)
+            this.create_skill_flat();
+        this.arsenal_button.visible = global_data.game_play.with_bot && global_data.game_play.advanced;
     }
     create_skill_flat() {
         // @ts-ignore

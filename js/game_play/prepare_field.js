@@ -428,9 +428,24 @@ class PrepareField extends Phaser.GameObjects.Container {
                     if (this.is_bot) {
                         this.prepare_frame.clear();
                         this.random_bot_field();
-                        global_data['game_play'].fields.push({ field: this.prepare_frame.field, ships: this.prepare_frame.ships, airdef: [0, 1, 2, 3], mine: [] });
+                        global_data['game_play'].fields.push({ field: this.prepare_frame.field, ships: this.prepare_frame.ships,
+                            airdef: global_data['game_play']['advanced'] ? [0, 1, 2, 3] : [],
+                            mine: [] });
+                        if (global_data['game_play']['advanced'])
+                            game_container.game_play.update_scenes('prepare_arsenal');
+                        else
+                            game_container.game_play.update_scenes('game_play');
                     }
-                    game_container.game_play.update_scenes('prepare_arsenal');
+                    else if (global_data['game_play'].fields.length < 2) {
+                        this.prepare_frame.clear();
+                        this.done_icon.visible = false;
+                        game_container.game_play.update_scenes('prepare_field');
+                    }
+                    else {
+                        this.prepare_frame.clear();
+                        this.done_icon.visible = false;
+                        game_container.game_play.update_scenes('game_play');
+                    }
                 }
             }
         });

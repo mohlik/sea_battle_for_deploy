@@ -60,13 +60,19 @@ class ArenaSlidereWindow extends Phaser.GameObjects.Container {
         });
         text.setOrigin(0.5);
         this.add(text);
-        text = new Phaser.GameObjects.Text(this.scene, 0, -1.9 * cell_width, 'ADVANCED MODE', {
-            fontFamily: 'rubik',
-            fontSize: 36,
-            color: '#051F79'
-        });
-        text.setOrigin(0.5);
-        this.add(text);
+        // text = new Phaser.GameObjects.Text(
+        //     this.scene,
+        //     0,
+        //     -1.9 * cell_width,
+        //     'ADVANCED MODE',
+        //     {
+        //         fontFamily: 'rubik',
+        //         fontSize: 36,
+        //         color: '#051F79'
+        //     }
+        // )
+        // text.setOrigin(0.5);
+        // this.add(text);
         for (let i = 0; i < 3; i++) {
             temp = new Phaser.GameObjects.Image(this.scene, (i - 1) * 6 * cell_width, 1 * cell_width, 'new', 'arena_item');
             temp.setScale(1);
@@ -126,24 +132,42 @@ class ArenaSlidereWindow extends Phaser.GameObjects.Container {
                 this.add(text);
             }
         }
+        let advanced_circ = new Phaser.GameObjects.Arc(this.scene, -7.3 * cell_width, 6 * cell_width, 20, 0, 360, false, 0x30DE06, 1);
+        advanced_circ.setStrokeStyle(5, 0x001C65, 1);
+        let classic_circ = new Phaser.GameObjects.Arc(this.scene, 1.8 * cell_width, 6 * cell_width, 20, 0, 360, false, 0x001C65, 1);
+        classic_circ.setStrokeStyle(5, 0x001C65, 1);
         temp = new Phaser.GameObjects.Image(this.scene, -4.5 * cell_width, 6 * cell_width, 'new', 'big_blue_button');
-        temp.alpha = 0.7;
+        temp.alpha = 1;
+        temp.setInteractive();
+        temp.on('pointerup', () => {
+            classic_circ.setFillStyle(0x001C65, 1);
+            advanced_circ.setFillStyle(0x30DE06, 1);
+            global_data['game_play']['advanced'] = true;
+        });
         this.add(temp);
+        this.add(advanced_circ);
         text = new Phaser.GameObjects.Text(this.scene, -4.5 * cell_width, 6 * cell_width, 'ADVANCED MODE', {
             fontFamily: 'rubik',
             fontSize: 36,
         });
-        text.alpha = 0.7;
+        text.alpha = 1;
         text.setOrigin(0.5);
         this.add(text);
         temp = new Phaser.GameObjects.Image(this.scene, 4.5 * cell_width, 6 * cell_width, 'new', 'big_blue_button');
-        temp.alpha = 0.7;
+        temp.alpha = 1;
+        temp.setInteractive();
+        temp.on('pointerup', () => {
+            advanced_circ.setFillStyle(0x001C65, 1);
+            classic_circ.setFillStyle(0x30DE06, 1);
+            global_data['game_play']['advanced'] = false;
+        });
         this.add(temp);
+        this.add(classic_circ);
         text = new Phaser.GameObjects.Text(this.scene, 4.5 * cell_width, 6 * cell_width, 'CLASSIC MODE', {
             fontFamily: 'rubik',
             fontSize: 36,
         });
-        text.alpha = 0.7;
+        text.alpha = 1;
         text.setOrigin(0.5);
         this.add(text);
         button = new CustomButton(this.scene, {
@@ -163,175 +187,9 @@ class ArenaSlidereWindow extends Phaser.GameObjects.Container {
         text.setOrigin(0.5);
         button.add(text);
         this.add(button);
-        // temp = new Phaser.GameObjects.Image(
-        //     this.scene,
-        //     0,
-        //     0,
-        //     'new',
-        //     'plank'
-        // );
-        // temp.setScale(0.4, 0.8);
-        // this.result_plank.add(temp);
-        // text = new Phaser.GameObjects.Text(
-        //     this.scene,
-        //     0,
-        //     0,
-        //     'WINNER',
-        //     {
-        //         fontFamily: 'rubik',
-        //         fontSize: 28
-        //     }
-        // )
-        // text.setOrigin(0.5);
-        // this.result_plank.add(text);
-        // this.add(this.result_plank);
-        // temp = new Phaser.GameObjects.Image(
-        //     this.scene,
-        //     5,
-        //     -3.9 * cell_width,
-        //     'new',
-        //     'micro_plank'
-        // );
-        // temp.setScale(5.5, 1.5);
-        // this.add(temp);
-        // text = new Phaser.GameObjects.Text(
-        //     this.scene,
-        //     5,
-        //     -3.9 * cell_width,
-        //     'BATTLE IS OVER!',
-        //     {
-        //         fontFamily: 'rubik',
-        //         fontSize: 36
-        //     }
-        // )
-        // text.setOrigin(0.5);
-        // this.add(text);
-        // temp = new Phaser.GameObjects.Image(
-        //     this.scene,
-        //     5,
-        //     -2.33 * cell_width,
-        //     'new',
-        //     'plank'
-        // );
-        // temp.setScale(0.57, 1);
-        // this.add(temp);
-        // text = new Phaser.GameObjects.Text(
-        //     this.scene,
-        //     5,
-        //     -2.33 * cell_width,
-        //     'REWARD!',
-        //     {
-        //         fontFamily: 'rubik',
-        //         fontSize: 28
-        //     }
-        // )
-        // text.setOrigin(0.5);
-        // this.add(text);
-        // temp = new Phaser.GameObjects.Image(
-        //     this.scene,
-        //     -6.2 * cell_width,
-        //     -1.5 * cell_width,
-        //     'new',
-        //     'profile_ava'
-        // );
-        // this.add(temp);
-        // temp = new Phaser.GameObjects.Image(
-        //     this.scene,
-        //     -6.2 * cell_width,
-        //     1 * cell_width,
-        //     'new',
-        //     'plank'
-        // );
-        // temp.setScale(0.4, 1);
-        // this.add(temp);
-        // text = new Phaser.GameObjects.Text(
-        //     this.scene,
-        //     -6.2 * cell_width,
-        //     1 * cell_width,
-        //     global_data.user_data.name.toUpperCase(),
-        //     {
-        //         fontFamily: 'rubik',
-        //         fontSize: 28
-        //     }
-        // )
-        // text.setOrigin(0.5);
-        // this.add(text);
-        // temp = new Phaser.GameObjects.Image(
-        //     this.scene,
-        //     -6.2 * cell_width,
-        //     2 * cell_width,
-        //     'new',
-        //     'plank'
-        // );
-        // temp.setScale(0.4, 1);
-        // this.add(temp);
-        // text = new Phaser.GameObjects.Text(
-        //     this.scene,
-        //     -6.2 * cell_width,
-        //     2 * cell_width,
-        //     global_data.user_data.rank.stage.toUpperCase(),
-        //     {
-        //         fontFamily: 'rubik',
-        //         fontSize: 28
-        //     }
-        // )
-        // text.setOrigin(0.5);
-        // this.add(text);
-        // temp = new Phaser.GameObjects.Image(
-        //     this.scene,
-        //     6.4 * cell_width,
-        //     -1.5 * cell_width,
-        //     'new',
-        //     'profile_ava'
-        // );
-        // temp.setFlipX(true);
-        // this.add(temp);
-        // temp = new Phaser.GameObjects.Image(
-        //     this.scene,
-        //     6.4 * cell_width,
-        //     1 * cell_width,
-        //     'new',
-        //     'plank'
-        // );
-        // temp.setScale(0.4, 1);
-        // this.add(temp);
-        // text = new Phaser.GameObjects.Text(
-        //     this.scene,
-        //     6.4 * cell_width,
-        //     1 * cell_width,
-        //     'Bot'.toUpperCase(),
-        //     {
-        //         fontFamily: 'rubik',
-        //         fontSize: 28
-        //     }
-        // )
-        // text.setOrigin(0.5);
-        // this.add(text);
-        // temp = new Phaser.GameObjects.Image(
-        //     this.scene,
-        //     6.4 * cell_width,
-        //     2 * cell_width,
-        //     'new',
-        //     'plank'
-        // );
-        // temp.setScale(0.4, 1);
-        // this.add(temp);
-        // text = new Phaser.GameObjects.Text(
-        //     this.scene,
-        //     6.4 * cell_width,
-        //     2 * cell_width,
-        //     global_data.user_data.rank.stage.toUpperCase(),
-        //     {
-        //         fontFamily: 'rubik',
-        //         fontSize: 28
-        //     }
-        // )
-        // text.setOrigin(0.5);
-        // this.add(text);
     }
     init() {
         let cell_width = global_data.cell_width + 2;
-        // this.create_dark();
         this.create_bg();
         this.create_interface();
         this.close_button = new CustomButton(this.scene, {
@@ -353,12 +211,6 @@ class ArenaSlidereWindow extends Phaser.GameObjects.Container {
     }
     post_show() {
         let cell_width = global_data.cell_width + 2;
-        // this.scene.tweens.add({
-        //     targets: this.result_plank,
-        //     x: (this.win ? -6.2 : 6.4) * cell_width,
-        //     duration: 500,
-        //     ease: 'back.out'
-        // });
     }
     handler_close() {
         game_container.windows_manager.close_window();

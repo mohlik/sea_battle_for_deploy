@@ -24,6 +24,7 @@ class Game extends Phaser.GameObjects.Container {
         this.init_flags();
         this.anims_manager = new AnimsManager(this.scene);
         this.add(this.anims_manager);
+        // this.anims_manager.get_big_window_move_anim(this);
         this.language_manager = new LanguageManager(this.scene);
         this.game_menu = new GameMenu(this.scene);
         this.add(this.game_menu);

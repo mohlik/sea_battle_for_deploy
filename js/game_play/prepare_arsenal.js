@@ -252,7 +252,7 @@ class PrepareArsenal extends Phaser.GameObjects.Container {
         this.skill_flat_container = new Phaser.GameObjects.Container(this.scene, 3 * cell_width, 5 * cell_width);
         this.add(this.skill_flat_container);
         this.skill_flat_container.visible = false;
-        let flat = new Phaser.GameObjects.Rectangle(this.scene, 5 * cell_width, 5 * cell_width, cell_width * 10, cell_width * 10, 0xffffff);
+        let flat = new Phaser.GameObjects.Rectangle(this.scene, 5 * cell_width, 5 * cell_width, cell_width * 10, cell_width * 10, 0xffffff, 1);
         flat.alpha = 0.3;
         flat.visible = true;
         this.skill_flat_container.add(flat);
@@ -298,14 +298,11 @@ class PrepareArsenal extends Phaser.GameObjects.Container {
         this.skill_flat_container.add(this.airdef_mig);
     }
     start_skill(skill_name) {
-        if (global_data.user_data.skills[skill_name].amount > 0) {
-            global_data.user_data.skills[skill_name].amount--;
-            this.skill_flat_active = true;
-            this.skill_flat_container.visible = true;
-            if (skill_name === 'airdef') {
-                this.skill_name = 'airdef';
-                this.airdef_mig.visible = true;
-            }
+        this.skill_flat_active = true;
+        this.skill_flat_container.visible = true;
+        if (skill_name === 'airdef') {
+            this.skill_name = 'airdef';
+            this.airdef_mig.visible = true;
         }
     }
     create_field(cell_width) {

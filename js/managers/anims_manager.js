@@ -8,6 +8,7 @@ precision mediump float;
 #endif
 
 // glslsandbox uniforms
+uniform sampler2D iChannel0;
 uniform float time;
 uniform vec2 resolution;
 

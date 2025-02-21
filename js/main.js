@@ -28,6 +28,9 @@ let global_data = {
             'amount': 1000,
             'max': 1000
         },
+        'daily_reward': {
+            amount: 0
+        },
         skills: {
             'atom': {
                 amount: 0
@@ -111,10 +114,43 @@ let global_data = {
             'avatars': [
                 { 'type': 'avatar', 'price': 100, 'valute': 'gold' }
             ]
-        }
+        },
+        purchase_items: [
+            { type: 'coins', id: 'coin_1', price: 0.99, icon: 'coin_1', items: {
+                    money: 200
+                } },
+            { type: 'coins', id: 'coin_2', price: 1.99, icon: 'coin_2', items: {
+                    money: 500
+                } },
+            { type: 'coins', id: 'coin_3', price: 2.99, icon: 'coin_3', items: {
+                    money: 1100
+                } },
+            { type: 'coins', id: 'coin_4', price: 3.99, icon: 'coin_4', items: {
+                    money: 2500
+                } },
+            { type: 'coins', id: 'coin_5', price: 4.99, icon: 'coin_5', items: {
+                    money: 7000
+                } },
+            { type: 'gems', id: 'gem_1', price: 0.99, icon: 'gem_1', items: {
+                    gems: 50
+                } },
+            { type: 'gems', id: 'gem_2', price: 1.99, icon: 'gem_2', items: {
+                    gems: 110
+                } },
+            { type: 'gems', id: 'gem_3', price: 2.99, icon: 'gem_3', items: {
+                    gems: 250
+                } },
+            { type: 'gems', id: 'gem_4', price: 3.99, icon: 'gem_4', items: {
+                    gems: 600
+                } },
+            { type: 'gems', id: 'gem_5', price: 4.99, icon: 'gem_5', items: {
+                    gems: 1500
+                } },
+        ]
     },
     'game_play': {
         'with_bot': true,
+        'advanced': true,
         'fields': [],
         'default_rules': {
             'ships': {
@@ -162,7 +198,23 @@ let global_data = {
             price: 50,
             max: 4
         }
-    }
+    },
+    daily_rewards: [
+        { type: 'coins', amount: 100, icon: 'coin_1' },
+        { type: 'coins', amount: 200, icon: 'coin_1' },
+        { type: 'coins', amount: 300, icon: 'coin_1' },
+        { type: 'coins', amount: 400, icon: 'coin_1' },
+        { type: 'coins', amount: 500, icon: 'coin_1' },
+        { type: 'coins', amount: 600, icon: 'coin_1' },
+        { type: 'coins', amount: 700, icon: 'coin_1' },
+        { type: 'coins', amount: 800, icon: 'coin_1' },
+        { type: 'coins', amount: 900, icon: 'coin_1' },
+        { type: 'coins', amount: 1000, icon: 'coin_1' },
+        { type: 'coins', amount: 1100, icon: 'coin_1' },
+        { type: 'coins', amount: 1200, icon: 'coin_1' },
+        { type: 'coins', amount: 1300, icon: 'coin_1' },
+        { type: 'coins', amount: 1400, icon: 'coin_1' },
+    ]
 };
 let game_container;
 const standart_ratio = {
@@ -208,6 +260,7 @@ class Boot extends Phaser.Scene {
         this.load.atlas('new', 'assets/new_atlas.png', 'assets/new_atlas.json');
         this.load.atlas('skill_anim', 'assets/skill_anim_atlas.png', 'assets/skill_anim_atlas.json');
         this.load.atlas('game_menu', 'assets/game_menu.png', 'assets/game_menu.json');
+        this.load.atlas('shop', 'assets/shop.png', 'assets/shop.json');
         this.load.atlas('flags', 'assets/flags.png', 'assets/flags.json');
         this.load.json('map_items', 'assets/data/map_items.json');
         this.load.font('rubik', 'fonts/RubikMarkerHatch-Regular.ttf', 'truetype');
@@ -226,6 +279,7 @@ class Boot extends Phaser.Scene {
             'js/big_windows/personalization.js',
             'js/big_windows/settings.js',
             'js/big_windows/leaderboard.js',
+            'js/big_windows/shop.js',
             'js/game_map/game_map.js',
             'js/game_map/map_item.js',
             'js/components/custom_button.js',
@@ -241,6 +295,7 @@ class Boot extends Phaser.Scene {
             'js/windows/arsenal.js',
             'js/windows/video_oil.js',
             'js/windows/arena_slider.js',
+            'js/windows/daily_reward.js',
         ]);
         this.load.start();
     }
