@@ -55,18 +55,9 @@ class Tasks extends Phaser.GameObjects.Container {
         let temp;
         let x = 8.6 * cell_width;
         let y;
-        // temp_rating.forEach((ava_id, ava_index) => {
-        //     y = ava_index * cell_width;
-        //     // temp = new Phaser.GameObjects.Image(
-        //     //     this.scene, 
-        //     //     x, 
-        //     //     y, 
-        //     //     'new', 
-        //     //     'profile_ava'
-        //     // );
-        //     temp = new Phaser.GameObjects.Rectangle(this.scene, x, y + 0.5 * cell_width, 18 * cell_width, 7, 0x051F79);
-        //     slider.add_child(temp);
-        // });
+        temp = new Phaser.GameObjects.Image(this.scene, 16.5 * cell_width, 3.5 * cell_width, 'new', 'plank');
+        temp.setScale(1.59, 1);
+        this.add(temp);
         for (let i = 0; i < 10; i++) {
             y = 1 * cell_width + i * 2.3 * cell_width;
             temp = new Phaser.GameObjects.Image(this.scene, 1.3 * cell_width, y, 'temp_task_reward');

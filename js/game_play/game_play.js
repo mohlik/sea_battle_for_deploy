@@ -38,10 +38,43 @@ class GamePlayScene extends Phaser.GameObjects.Container {
         }
         return true;
     }
+    anim_mine(x, y) {
+        let cell_width = global_data.cell_width + 2;
+        let mine = new Phaser.GameObjects.Image(this.scene, (x + 0.5) * cell_width + this.first_player_field.x, (y + 0.5) * cell_width + this.first_player_field.y, 'mine');
+        mine.setScale(0.8);
+        mine.alpha = 0;
+        this.anim_container.add(mine);
+        this.scene.tweens.add({
+            targets: mine,
+            alpha: 1,
+            scale: 1,
+            duration: 300,
+            onComplete: () => {
+                let anim = new Phaser.GameObjects.Sprite(this.scene, mine.x, mine.y, 'explo_3');
+                anim.on('animationcomplete', () => {
+                    anim.destroy();
+                });
+                anim.alpha = 1;
+                this.anim_container.add(anim);
+                anim.play('shot');
+                mine.destroy();
+            }
+        });
+    }
+    bot_turn() {
+        let bot_delay = 300;
+        let bot_point = this.bot.turn();
+        setTimeout(() => {
+            this.first_player_field.hit(bot_point.x, bot_point.y);
+            if (global_data['game_play']['fields'][0].mine.some(e => e.x === bot_point.x && e.y === bot_point.y)) {
+                this.anim_mine(bot_point.x, bot_point.y);
+                this.second_player_field.hit(bot_point.x, bot_point.y, true);
+            }
+        }, bot_delay);
+    }
     show(params) {
         let game_scale = 1;
         let cell_width = global_data.cell_width * game_scale + 2;
-        let bot_delay = 300;
         this.first_player_field = new GameField(this.scene, {
             field: global_data.game_play.fields[0].field,
             ships: global_data.game_play.fields[0].ships,
@@ -56,10 +89,7 @@ class GamePlayScene extends Phaser.GameObjects.Container {
                     this.first_player_field.on_turn();
                 }
                 else {
-                    let bot_point = this.bot.turn();
-                    setTimeout(() => {
-                        this.first_player_field.hit(bot_point.x, bot_point.y);
-                    }, bot_delay);
+                    this.bot_turn();
                 }
             },
             hit_callback: (succsec_hit) => {
@@ -78,10 +108,7 @@ class GamePlayScene extends Phaser.GameObjects.Container {
                             this.first_player_field.on_turn();
                         }
                         else {
-                            let bot_point = this.bot.turn();
-                            setTimeout(() => {
-                                this.first_player_field.hit(bot_point.x, bot_point.y);
-                            }, bot_delay);
+                            this.bot_turn();
                         }
                     });
                 }
@@ -111,10 +138,7 @@ class GamePlayScene extends Phaser.GameObjects.Container {
                             ;
                         }
                         else {
-                            let bot_point = this.bot.turn();
-                            setTimeout(() => {
-                                this.first_player_field.hit(bot_point.x, bot_point.y);
-                            }, bot_delay);
+                            this.bot_turn();
                         }
                     });
                 }
@@ -823,7 +847,6 @@ class GamePlayScene extends Phaser.GameObjects.Container {
             this.second_player_field.destroy();
     }
     set_timer(side) {
-        let bot_delay = 500;
         let sec_count = 30;
         this.turn_timer.text = sec_count.toString();
         this.timer = this.scene.time.addEvent({
@@ -841,10 +864,7 @@ class GamePlayScene extends Phaser.GameObjects.Container {
                                 this.first_player_field.on_turn();
                             }
                             else {
-                                let bot_point = this.bot.turn();
-                                setTimeout(() => {
-                                    this.first_player_field.hit(bot_point.x, bot_point.y);
-                                }, bot_delay);
+                                this.bot_turn();
                             }
                         }
                         else {
@@ -855,10 +875,7 @@ class GamePlayScene extends Phaser.GameObjects.Container {
                                 ;
                             }
                             else {
-                                let bot_point = this.bot.turn();
-                                setTimeout(() => {
-                                    this.first_player_field.hit(bot_point.x, bot_point.y);
-                                }, bot_delay);
+                                this.bot_turn();
                             }
                         }
                     });

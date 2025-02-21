@@ -78,7 +78,7 @@ class PrepareArsenal extends Phaser.GameObjects.Container {
             'airdef',
             'submarine',
             'radar',
-            // 'mine'
+            'mine'
         ].forEach((skill_name, i) => {
             temp = new Phaser.GameObjects.Image(this.scene, cell_width * 4.6, i * cell_width * 4 + 1.8 * cell_width, 'skill_item');
             this.arsenal_slider.add_child(temp);
@@ -99,7 +99,7 @@ class PrepareArsenal extends Phaser.GameObjects.Container {
             });
             temp.on('pointerup', () => {
                 if (!this.arsenal_slider.was_move) {
-                    if (skill_name === 'airdef')
+                    if (skill_name === 'airdef' || skill_name === 'mine')
                         this.start_skill(skill_name);
                     else
                         this.handler_buy(skill_name);
@@ -267,9 +267,14 @@ class PrepareArsenal extends Phaser.GameObjects.Container {
             if (this.skill_flat_active) {
                 flat_down = false;
                 let y = Math.floor((pointer.position.y - this.skill_flat_container.y) / cell_width);
+                let x = Math.floor((pointer.position.x - this.skill_flat_container.x) / cell_width);
                 if (this.skill_name === 'airdef') {
                     global_data.game_play.fields[0].airdef.push(y, y + 1);
                     this.handler_buy('airdef');
+                }
+                else if (this.skill_name === 'mine') {
+                    global_data.game_play.fields[0].mine.push({ x, y });
+                    this.handler_buy('mine');
                 }
                 this.skill_flat_active = false;
                 this.skill_flat_container.visible = false;
@@ -282,12 +287,21 @@ class PrepareArsenal extends Phaser.GameObjects.Container {
             .on('pointermove', (pointer) => {
             if (flat_down && this.skill_flat_active) {
                 let y = Math.floor((pointer.position.y - this.skill_flat_container.y) / cell_width);
+                let x = Math.floor((pointer.position.x - this.skill_flat_container.x) / cell_width);
                 if (this.skill_name === 'airdef') {
                     if (y < 0)
                         y = 0;
                     if (y > 8)
                         y = 8;
                     this.airdef_mig.y = cell_width * 1 + cell_width * y;
+                }
+                else if (this.skill_name === 'mine') {
+                    if (y < 0)
+                        y = 0;
+                    if (y > 9)
+                        y = 9;
+                    this.mine_mig.y = cell_width * 0.5 + cell_width * y;
+                    this.mine_mig.x = cell_width * 0.5 + cell_width * x;
                 }
             }
         });
@@ -296,6 +310,10 @@ class PrepareArsenal extends Phaser.GameObjects.Container {
         this.airdef_mig.setScale(2, 0.4);
         this.airdef_mig.visible = false;
         this.skill_flat_container.add(this.airdef_mig);
+        this.mine_mig = new Phaser.GameObjects.Image(this.scene, 0.5 * cell_width, 0.5 * cell_width, 'skill_anim', 'mine');
+        this.mine_mig.setScale(0.8);
+        this.mine_mig.visible = false;
+        this.skill_flat_container.add(this.mine_mig);
     }
     start_skill(skill_name) {
         this.skill_flat_active = true;
@@ -303,6 +321,10 @@ class PrepareArsenal extends Phaser.GameObjects.Container {
         if (skill_name === 'airdef') {
             this.skill_name = 'airdef';
             this.airdef_mig.visible = true;
+        }
+        if (skill_name === 'mine') {
+            this.skill_name = 'mine';
+            this.mine_mig.visible = true;
         }
     }
     create_field(cell_width) {
