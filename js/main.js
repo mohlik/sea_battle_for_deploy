@@ -280,6 +280,8 @@ class Boot extends Phaser.Scene {
             'js/big_windows/settings.js',
             'js/big_windows/leaderboard.js',
             'js/big_windows/shop.js',
+            'js/big_windows/achivments.js',
+            'js/big_windows/tasks.js',
             'js/game_map/game_map.js',
             'js/game_map/map_item.js',
             'js/components/custom_button.js',
@@ -296,6 +298,7 @@ class Boot extends Phaser.Scene {
             'js/windows/video_oil.js',
             'js/windows/arena_slider.js',
             'js/windows/daily_reward.js',
+            'js/windows/options.js',
         ]);
         this.load.start();
     }

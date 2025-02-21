@@ -55,6 +55,16 @@
             },
             {
                 "type": "image",
+                "key": "temp_task_reward",
+                "url": "assets/ui/temp_task_reward.png"
+            },
+            {
+                "type": "image",
+                "key": "medal",
+                "url": "assets/ui/medal.png"
+            },
+            {
+                "type": "image",
                 "key": "ava_frame",
                 "url": "assets/ui/ava_frame.png"
             },

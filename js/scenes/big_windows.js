@@ -33,7 +33,9 @@ class BigWindows extends Phaser.GameObjects.Container {
         this.settings = new Settings(this.scene);
         this.leaderboard = new Leaderboard(this.scene);
         this.shop = new Shop(this.scene);
-        this.add([this.profile, this.personalization, this.settings, this.leaderboard, this.shop]);
+        this.achivments = new Achivments(this.scene);
+        this.tasks = new Tasks(this.scene);
+        this.add([this.profile, this.personalization, this.settings, this.leaderboard, this.shop, this.achivments, this.tasks]);
         this.update_scenes('profile');
     }
     update_scenes(scene_id) {
@@ -42,7 +44,9 @@ class BigWindows extends Phaser.GameObjects.Container {
             'personalization': this.personalization,
             'settings': this.settings,
             'leaderboard': this.leaderboard,
-            'shop': this.shop
+            'shop': this.shop,
+            'achivments': this.achivments,
+            'tasks': this.tasks
         };
         let _visible = false;
         Object.keys(condition).forEach((condition_key) => {

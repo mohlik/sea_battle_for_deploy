@@ -5,8 +5,8 @@ class GameMap extends Phaser.GameObjects.Container {
     }
     init() {
         this.zoom = 0;
-        this.init_interactive();
         this.create_roads();
+        this.init_interactive();
         // this.create_items();
     }
     init_interactive() {
@@ -16,12 +16,22 @@ class GameMap extends Phaser.GameObjects.Container {
             if (this.active_map)
                 this.update_zoom(pointer, -dy);
         });
-        this.scene.input.on('drag', (pointer, dragX, dragY) => {
+        this.bg.setInteractive({ draggable: true });
+        this.bg.on('drag', (pointer, dragX, dragY) => {
             if (this.active_map)
-                this.update_drag();
+                this.update_drag(dragX, dragY);
         });
     }
-    update_drag() {
+    update_drag(x, y) {
+        if (x > game_size.width / 2)
+            x = game_size.width / 2;
+        if (x < -this.bg.width + game_size.width / 2)
+            x = -this.bg.width + game_size.width / 2;
+        if (y > game_size.height / 2)
+            y = game_size.height / 2;
+        if (y < -this.bg.height + game_size.height / 2)
+            y = -this.bg.height + game_size.height / 2;
+        this.bg.setPosition(x, y);
     }
     update_zoom(pointer, new_zoom) {
         let current_new_zoom = this.zoom + new_zoom / 10;

@@ -57,8 +57,9 @@ class GameMenu extends Phaser.GameObjects.Container {
             atlas: 'game_menu',
             frame_out: 'micro_back',
             callback: () => {
-                game_container.big_windows.update_scenes('settings');
-                game_container.update_scenes('big_windows');
+                // game_container.big_windows.update_scenes('settings');
+                // game_container.update_scenes('big_windows');
+                game_container.windows_manager.show_window('options');
                 // game_container.windows_manager.show_window('test', {});
                 // game_container.windows_manager.show_window('result_battle');
             }
@@ -186,6 +187,8 @@ class GameMenu extends Phaser.GameObjects.Container {
             atlas: 'game_menu',
             frame_out: 'basic_button',
             callback: () => {
+                game_container.big_windows.update_scenes('tasks');
+                game_container.update_scenes('big_windows');
             }
         });
         this.add(button);
