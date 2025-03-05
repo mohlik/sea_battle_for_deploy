@@ -4,7 +4,7 @@
             {
                 "type": "image",
                 "key": "main_bg",
-                "url": "assets/bgs/main_bg.png"
+                "url": "assets/bgs/map_bg.png"
             },
             {
                 "type": "image",
@@ -45,7 +45,7 @@
             {
                 "type": "image",
                 "key": "map_bg",
-                "url": "assets/bgs/map_bg.png"
+                "url": "assets/bgs/page_bg.png"
             },
 
             {
