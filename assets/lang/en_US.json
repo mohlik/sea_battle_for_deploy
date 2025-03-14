@@ -1,15 +1,15 @@
 {
-    "game_play_home_button": {
-        "text": "MAIN MENU",
-        "style": {
-            "fontSize": 20
-        } 
-    },
-
-    "test": {
-        "text": "Hello World!",
-        "style": {
-            "fontSize": 20
-        } 
+  "game_play_home_button": {
+    "text": "MAIN MENU",
+    "style": {
+      "fontSize": 20
     }
+  },
+
+  "test": {
+    "text": "Hello World!",
+    "style": {
+      "fontSize": 20
+    }
+  }
 }
